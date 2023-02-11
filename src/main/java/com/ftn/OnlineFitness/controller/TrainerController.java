@@ -92,7 +92,7 @@ public class TrainerController implements ServletContextAware {
 				@RequestParam(required = true) String email,@RequestParam(required = true) String password,
 				@RequestParam(required = true) String phoneNumber, @RequestParam(required = true) String address,
 				@RequestParam(required = true) String cardNumber, @RequestParam(required = true) ELanguage nativeLanguage,
-				 @RequestParam(required = false) List<ELanguage> additionalLanguages, @RequestParam (required = true) ERole role,
+				 @RequestParam(required = false) List<ELanguage> trainerLanguages, @RequestParam (required = true) ERole role,
 				 @RequestParam(required = true) String certificate, @RequestParam(required = true) String diploma,
 				 @RequestParam(required = true) String title, @RequestParam(required = false, defaultValue="false") boolean isActive,
 				 @RequestParam(required = true) double salary, HttpServletResponse response) throws IOException {	
@@ -116,8 +116,8 @@ public class TrainerController implements ServletContextAware {
 					trainer.setCardNumber(cardNumber);
 				if(nativeLanguage != null )
 					trainer.setNativeLanguage(nativeLanguage);
-				if (additionalLanguages != null && !additionalLanguages.isEmpty()) {
-					  trainer.setAdditionalLanguages(additionalLanguages);
+				if (trainerLanguages != null && !trainerLanguages.isEmpty()) {
+					  trainer.setAdditionalLanguages(trainerLanguages);
 					}
 				if(role != null )
 					trainer.setRole(role);
@@ -153,7 +153,6 @@ public class TrainerController implements ServletContextAware {
 		public ModelAndView details(@RequestParam int id) {	
 			Trainer trainer = trainerService.findOne(id);
 			List<ELanguage> trainerLanguages = trainerService.getTrainerLanguages(id);
-			System.out.println("trainerLanguages: " + trainerLanguages);
 
 			
 		
@@ -165,3 +164,4 @@ public class TrainerController implements ServletContextAware {
 		}
 
 	}
+

@@ -2,6 +2,9 @@ package com.ftn.OnlineFitness.dao;
 import java.util.List;
 
 import com.ftn.OnlineFitness.model.Client;
+import com.ftn.OnlineFitness.model.EGoals;
+import com.ftn.OnlineFitness.model.ELanguage;
+import com.ftn.OnlineFitness.model.EProps;
 
 
 
@@ -16,4 +19,10 @@ public interface ClientDAO {
 	public int update(Client client);
 
 	public int delete(int id);
+	
+	public List<ELanguage> getClientLanguages(int id);
+	
+	public List<EGoals> getClientGoals(int id);
+	
+	public List<EProps> getClientProps(int id);
 }

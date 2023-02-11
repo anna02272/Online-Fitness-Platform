@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<base th:href="@{/}">
+	<link rel="stylesheet" type="text/css" href="css/StylesForm.css"/>
+	<link rel="stylesheet" type="text/css" href="css/StylesMenu.css"/>
+	<title>Client</title>
+</head>
+<body>
+<h2>OnlineFittness</h2>
+	 <nav>
+	  <div class="navigation">  
+	 	<ul>     
+	 		<li ><a href="trainers" >Trainers</a></li>
+	 		<li ><a href="clients" >Clients</a></li>
+	 		<li ><a href="appointments">Appointments</a></li>   
+	 		<li><a href="">Logout</a></li> 
+	 	</ul>     
+	 	</div>
+	</nav>
+	
+	<section class="content">
+	<div class = "content"> 
+	<form method="post" action="clients/edit">
+		<input type="hidden" name="id" th:value="${client.id}"/>
+		<table class="forma">
+			<caption>Client</caption>
+			<tr><th>Name:</th><td><input type="text" th:value="${client.name}" name="name" /></td></tr>
+			<tr><th>Surname:</th><td><input type="text"  th:value="${client.surname}" name="surname" required/></td></tr>
+			<tr><th>Email:</th><td><input type="text"  th:value="${client.email}" name="email" required /></td></tr>
+			<tr><th>Password:</th><td><input type="password"  th:value="${client.password}" name="password" required/></td></tr>
+			<tr><th>Phone number:</th><td><input type="text"  th:value="${client.phoneNumber}" name="phoneNumber" required /></td></tr>
+			<tr><th>Address:</th><td><input type="text" th:value="${client.address}" name="address" required/></td></tr>
+			<tr><th>Card number:</th><td><input type="text"  th:value="${client.cardNumber}" name="cardNumber" required/></td></tr>
+			<tr>
+ 				<th>Native language:</th>
+				<td>
+			    <select name="nativeLanguage">
+			      <option th:each="elanguage: ${T(com.ftn.OnlineFitness.model.ELanguage).values()}" 
+			                th:value="${elanguage}" 
+			              th:text="${elanguage}"
+			               th:selected="${elanguage == client.nativeLanguage}">
+			      </option>
+			    </select>
+			  </td>
+			  <tr>
+				  <th>Additional languages:</th>
+				  <td>
+				    <select name="clientLanguages" multiple>
+				     <option th:each="language: ${T(com.ftn.OnlineFitness.model.ELanguage).values()}" 
+          			 th:value="${language}" 
+          			 th:text="${language}"
+         			 th:selected="${clientLanguages.contains(language)}">
+   				  </option>
+
+				    </select>
+				  </td>
+				</tr>
+				<tr>
+ 				<th>Role:</th>
+				<td>
+			    <select name="role">
+			      <option th:each="erole: ${T(com.ftn.OnlineFitness.model.ERole).values()}" 
+			                th:value="${erole}" 
+			              th:text="${erole}"
+			               th:selected="${erole == client.role}">
+			      </option>
+			    </select>
+			  </td>
+			  <tr>
+			<tr><th>Height:</th><td><input type="number" th:value="${client.height}" name="height" required/></td></tr>
+			<tr><th>Weight:</th><td><input type="number" th:value ="${client.weight}" name="weight" required/></td></tr>
+			<tr><th>Illness or condition:</th><td><input type="text"  th:value ="${client.illnessOrConditions}" name="illnessOrConditions" required /></td></tr>
+			<tr>
+				  <th>Goals:</th>
+				  <td>
+				    <select name="clientGoals" multiple>
+				     <option th:each="goal: ${T(com.ftn.OnlineFitness.model.EGoals).values()}" 
+          			 th:value="${goal}" 
+          			 th:text="${goal}"
+         			 th:selected="${clientGoals.contains(goal)}">
+   				  </option>
+
+				    </select>
+				  </td>
+				</tr>
+				<tr>
+				  <th>Props:</th>
+				  <td>
+				    <select name="clientProps" multiple>
+				     <option th:each="prop: ${T(com.ftn.OnlineFitness.model.EProps).values()}" 
+          			 th:value="${prop}" 
+          			 th:text="${prop}"
+         			 th:selected="${clientProps.contains(prop)}">
+   				  </option>
+
+				    </select>
+				  </td>
+				</tr>
+			<tr><th>Waist circumference:</th><td><input type="number"  th:value ="${client.waistCircumference}" name="waistCircumference" required/></td></tr>
+			<tr><th>Stomach circumference:</th><td><input type="number"  th:value ="${client.stomachCircumference}" name="stomachCircumference" required/></td></tr>
+			
+ 			
+			<tr><th></th><td><input type="submit" value="Update"/></td></tr>
+		
+		
+		</table>
+	</form>
+	<form method="post" action="clients/delete">
+		<input type="hidden" name="id" th:value="${client.id}"/>
+		<table class="forma">
+			<tr><th></th><td><input type="submit" value="Delete"/></td></tr>
+		</table>
+	</form>
+	
+	</div>
+	</section>
+</body>
+</html>

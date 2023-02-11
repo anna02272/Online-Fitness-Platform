@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -53,36 +54,13 @@ public class ClientDAOImpl implements ClientDAO {
 			String address = resultSet.getString(index++);
 			String cardNumber = resultSet.getString(index++);
 			ELanguage nativeLanguage = ELanguage.valueOf(resultSet.getString(index++));
-			List<ELanguage> additionalLanguages = new ArrayList<>();
-			String languageString = resultSet.getString(index++);
-			if (languageString != null) {
-			  String[] languages = languageString.split(",");
-			  for (String language : languages) {
-			    additionalLanguages.add(ELanguage.valueOf(language));
-			  }
-			}
-
+			
 			ERole role = ERole.valueOf(resultSet.getString(index++));
 			
 			int height = resultSet.getInt(index++);
 			int weight = resultSet.getInt(index++);
 			String illnessOrConditions = resultSet.getString(index++);
-			List<EGoals> allgoals = new ArrayList<>();
-			String goalsString = resultSet.getString(index++);
-			if (goalsString != null) {
-			  String[] goals = goalsString.split(",");
-			  for (String goal : goals) {
-			   allgoals.add(EGoals.valueOf(goal));
-			  }
-			}
-			List<EProps> allprops = new ArrayList<>();
-			String propsString = resultSet.getString(index++);
-			if (propsString != null) {
-			  String[] props = propsString.split(",");
-			  for (String prop : props) {
-			   allprops.add(EProps.valueOf(prop));
-			  }
-			}
+			
 			double waistCircumference = resultSet.getDouble(index++);
 			double stomachCircumference = resultSet.getDouble(index++);
 			
@@ -90,8 +68,8 @@ public class ClientDAOImpl implements ClientDAO {
 
 			Client client = clients.get(id);
 			if (client == null) {
-				client = new Client(id, name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, additionalLanguages, role,
-						height, weight, illnessOrConditions, allgoals, allprops, waistCircumference, stomachCircumference);
+				client = new Client(id, name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, role,
+						height, weight, illnessOrConditions,  waistCircumference, stomachCircumference);
 				clients.put( (long) client.getId(), client); 
 			}
 			
@@ -137,8 +115,8 @@ public class ClientDAOImpl implements ClientDAO {
 			
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-				String sql =  "INSERT INTO ClientTable (name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, role"
-				 		+ " height, weight, illnessOrCondition,waistCircumreference ,stomachCircumreference) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				String sql =  "INSERT INTO ClientTable (name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, role,"
+				 		+ " height, weight, illnessOrCondition,waistCircumference ,stomachCircumference) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int index = 1;
 				preparedStatement.setString(index++, client.getName());
@@ -164,6 +142,23 @@ public class ClientDAOImpl implements ClientDAO {
 		};
 		GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 		boolean uspeh = jdbcTemplate.update(preparedStatementCreator, keyHolder) == 1;
+		 if (uspeh) {
+		        long clientId = keyHolder.getKey().longValue();
+		        String sql = "INSERT INTO clientSpeaks (clientId, speaksLangague) VALUES (?, ?)";
+		        for (ELanguage additionalLanguage : client.getAdditionalLanguages()) {
+		            jdbcTemplate.update(sql, new Object[]{clientId, additionalLanguage.name()});
+		        }
+		
+		        String sql1 = "INSERT INTO clientGoals(clientId, goal) VALUES (?, ?)";
+		        for (EGoals goal : client.getGoals()) {
+		            jdbcTemplate.update(sql1, new Object[]{clientId, goal.name()});
+		        }
+		        String sql2 = "INSERT INTO clientProps (clientId, prop) VALUES (?, ?)";
+		        for (EProps prop : client.getProps()) {
+		            jdbcTemplate.update(sql2, new Object[]{clientId, prop.name()});
+		        }
+		    }
+		
 		return uspeh?1:0;
 	}
 	
@@ -173,12 +168,34 @@ public class ClientDAOImpl implements ClientDAO {
 		
 		String sql =  "UPDATE ClientTable SET name = ?, surname = ?, email = ?, password = ?,"
 				+ " phoneNumber = ?, address = ?, cardNumber = ?, nativeLanguage = ?, "
-				+ "height = ?, weight = ?, ilnessOrCondition = ?, waistCircumferefence = ?, "
+				+ "height = ?, weight = ?, illnessOrCondition = ?, waistCircumference = ?, "
 				+ "stomachCircumference = ? WHERE id = ?";
 		boolean uspeh = jdbcTemplate.update(sql, client.getName(), client.getSurname(),  client.getEmail(),
 				client.getPassword(), client.getPhoneNumber(), client.getAddress(), client.getCardNumber(), 
 				client.getNativeLanguage(),client.getHeight(), client.getWeight(), client.getIllnessOrConditions(), 
 				client.getWaistCircumference(), client.getStomachCircumference(), client.getId()) == 1;
+		
+		String deleteSql = "DELETE FROM clientSpeaks WHERE clientId = ?";
+		jdbcTemplate.update(deleteSql, client.getId());
+		
+		String insertSql = "INSERT INTO clientSpeaks (clientId, speaksLangague) values (?,?)";
+		for (ELanguage language : client.getAdditionalLanguages()) {
+			jdbcTemplate.update(insertSql, client.getId(), language.name());
+		}
+		String deleteSql1 = "DELETE FROM clientGoals WHERE clientId = ?";
+		jdbcTemplate.update(deleteSql1, client.getId());
+		
+		String insertSql1 = "INSERT INTO clientGoals (clientId, goal) values (?,?)";
+		for (EGoals goal : client.getGoals()) {
+			jdbcTemplate.update(insertSql1, client.getId(), goal.name());
+		}
+		String deleteSql2 = "DELETE FROM clientProps WHERE clientId = ?";
+		jdbcTemplate.update(deleteSql2, client.getId());
+		
+		String insertSql2 = "INSERT INTO clientProps (clientId, prop) values (?,?)";
+		for (EProps prop : client.getProps()) {
+			jdbcTemplate.update(insertSql2, client.getId(), prop.name());
+		}
 		
 		return uspeh?1:0;
 	}
@@ -187,7 +204,37 @@ public class ClientDAOImpl implements ClientDAO {
 	@Override
 	public int delete(int id) {
 		String sql = "DELETE FROM ClientTable WHERE id = ?";
+		String sql1 = "DELETE FROM ClientSpeaks WHERE clientId = ?";
+		jdbcTemplate.update(sql1, id);
 		return jdbcTemplate.update(sql, id);
 	}
+	
+	@Transactional
+	@Override
+	public List<ELanguage> getClientLanguages(int id) {
+		String sql = "SELECT speaksLangague FROM clientSpeaks WHERE clientId = ?";
+		List<String> languageStrings = jdbcTemplate.queryForList(sql, new Object[] { id }, String.class);
+		List<ELanguage> languages = languageStrings.stream().map(ELanguage::valueOf).collect(Collectors.toList());
+		return languages;
+	}
+	
+	@Transactional
+	@Override
+	public List<EGoals> getClientGoals(int id) {
+		String sql = "SELECT goal FROM clientGoals WHERE clientId = ?";
+		List<String> goalStrings = jdbcTemplate.queryForList(sql, new Object[] { id }, String.class);
+		List<EGoals> goals = goalStrings.stream().map(EGoals::valueOf).collect(Collectors.toList());
+		return goals;
+	}
+	
+	@Transactional
+	@Override
+	public List<EProps> getClientProps(int id) {
+		String sql = "SELECT prop FROM clientProps WHERE clientId = ?";
+		List<String> propStrings = jdbcTemplate.queryForList(sql, new Object[] { id }, String.class);
+		List<EProps> props = propStrings.stream().map(EProps::valueOf).collect(Collectors.toList());
+		return props;
+	}
+	
 	
 }
