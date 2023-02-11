@@ -48,7 +48,12 @@ public class TrainerController implements ServletContextAware {
 		
 		@GetMapping
 		public ModelAndView index() {
-			List<Trainer> trainers = trainerService.findAll();		
+			List<Trainer> trainers = trainerService.findAll();	
+			
+			for (Trainer trainer : trainers) {
+				trainer.setAdditionalLanguages(trainerService.getTrainerLanguages(trainer.getId()));
+			}
+			
 			
 			ModelAndView rezultat = new ModelAndView("trainers"); 
 			rezultat.addObject("trainers", trainers); 
@@ -92,6 +97,8 @@ public class TrainerController implements ServletContextAware {
 				 @RequestParam(required = true) String title, @RequestParam(required = false, defaultValue="false") boolean isActive,
 				 @RequestParam(required = true) double salary, HttpServletResponse response) throws IOException {	
 			Trainer trainer = trainerService.findOne(id);
+			
+			
 			if(trainer != null) {
 				if(name != null && !name.trim().equals(""))
 					trainer.setName(name);
@@ -145,10 +152,14 @@ public class TrainerController implements ServletContextAware {
 		@ResponseBody
 		public ModelAndView details(@RequestParam int id) {	
 			Trainer trainer = trainerService.findOne(id);
+			List<ELanguage> trainerLanguages = trainerService.getTrainerLanguages(id);
+			System.out.println("trainerLanguages: " + trainerLanguages);
+
 			
 		
 			ModelAndView rezultat = new ModelAndView("trainer"); 
 			rezultat.addObject("trainer", trainer); 
+			rezultat.addObject("trainerLanguages", trainerLanguages);
 
 			return rezultat; 
 		}
