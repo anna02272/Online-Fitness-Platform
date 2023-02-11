@@ -87,5 +87,7 @@ public class Trainer extends User {
 		this.salary = salary;
 	}
 	
+	
+	
     
 }
