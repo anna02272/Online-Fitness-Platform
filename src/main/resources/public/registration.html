@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<base href="">
+	<link rel="stylesheet" type="text/css" href="css/StylesForm.css"/>
+	<link rel="stylesheet" type="text/css" href="css/StylesMenu.css"/>
+	<title>Registration</title>
+</head>
+<body>
+	<h2>OnlineFitness</h2>
+<nav>
+
+	  <div class="navigation">  
+	 	<ul>     
+	 
+	 		<li ><a href="trainers" >Trainers</a></li>
+	 		<li ><a href="clients" >Clients</a></li>
+	 		<li ><a href="appointments">Appointments</a></li>
+	 		
+	 	</ul>     
+	 	</div >
+	</nav>
+	<br>
+	<br>
+	<br>
+	
+	<table class="user">
+		<tr><th>You're not logged in</th></tr>
+		<tr>
+			<td>
+				<ul>
+					<li><a href="registration.html">Registration</a></li>
+					<li><a href="login.html">Login</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	
+	<form method="post" action="users/registration">
+		<table>
+	
+	
+			<caption>Registration</caption>
+			<tr><th>Name:</th><td><input type="text" value="" name="name" /></td></tr>
+			<tr><th>Surname:</th><td><input type="text" value="" name="surname" required/></td></tr>
+			<tr><th>Email:</th><td><input type="text" value="" name="email" required /></td></tr>
+			<tr><th>Password:</th><td><input type="password" value="" name="password" required/></td></tr>
+			<tr><th>Phone number:</th><td><input type="text" value="" name="phoneNumber" required /></td></tr>
+			<tr><th>Address:</th><td><input type="text" value="" name="address" required/></td></tr>
+			<tr><th>Card number:</th><td><input type="text" value="" name="cardNumber" required/></td></tr>
+			<tr>
+ 				<th>Native language:</th>
+				<td>
+			    <select name="language">
+			      <option th:each="elanguage: ${T(com.ftn.OnlineFitness.model.ELanguage).values()}" 
+			                th:value="${elanguage}" 
+			              th:text="${elanguage}">
+			      </option>
+			    </select>
+			  </td>
+			  <tr>
+				  <th>Additional languages:</th>
+				  <td>
+				    <select name="additionalLanguages" multiple>
+				      <option th:each="language: ${T(com.ftn.OnlineFitness.model.ELanguage).values()}" 
+				                th:value="${language}" 
+				              th:text="${language}">
+				      </option>
+				    </select>
+				  </td>
+				</tr>
+				<tr>
+ 				<th>Role:</th>
+				<td>
+			    <select name="role">
+			      <option th:each="erole: ${T(com.ftn.OnlineFitness.model.ERole).values()}" 
+			                th:value="${erole}" 
+			              th:text="${erole}">
+			      </option>
+			    </select>
+			  </td>
+			  <tr>
+				
+			<tr><th></th><td><input type="submit" value="Register" /></td>
+		</table>
+		
+	</form>
+
+	
+
+</body>
+</html>

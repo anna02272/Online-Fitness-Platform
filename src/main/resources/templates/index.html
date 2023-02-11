@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<base th:href="@{/}">
+	<link rel="stylesheet" type="text/css" href="css/StylesForm.css"/>
+	<link rel="stylesheet" type="text/css" href="css/StylesTable.css"/>
+	<link rel="stylesheet" type="text/css" href="css/StylesMenu.css"/>
+	<title>OnlineFitness</title>
+</head>
+<body>
+	<h2>OnlineFitness</h2>
+ 
+		 <nav>
+	  <div class="navigation">  
+	 	<ul>     
+	 		<li ><a href="trainers" >Trainers</a></li>
+	 		<li ><a href="clients" >Clients</a></li>
+	 		<li ><a href="appointments">Appointments</a></li>
+		
+	 		
+	 		
+	 	</ul>     
+	 	</div>
+	</nav>
+	
+<br>
+<br>
+<br>
+
+		
+	<table th:unless="${session.user == null}"> 
+	 	  								
+		<tr><th>You're logged in as </th><td><a th:href="|users/details?id=${session.user.id}|" th:text="${session.user.email}"></a>.</td></tr>
+		<tr>
+			<td colspan="2">
+				<ul>
+					<li><a href="users/logout">Logout</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	<table th:if="${session.user == null}">
+		<tr><th>You're not logged in</th></tr>
+		<tr>
+			<td>
+				<ul>
+					<li><a href="registration.html">Registration</a></li>
+					<li><a href="login.html">Login</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>
