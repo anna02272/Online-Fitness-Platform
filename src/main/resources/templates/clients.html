@@ -1,0 +1,116 @@
+<!DOCTYPE html> 
+	<html xmlns:th="http://www.thymeleaf.org">     
+	<head>     
+		<meta charset="UTF-8">     
+		<base th:href="@{/}">
+		<title>Clients</title>     
+		<link rel="stylesheet"  type="text/css"  href="css/StylesTable.css"/>     
+	 	<link rel="stylesheet"  type="text/css" href="css/StylesMenu.css"/>   
+	 </head>     
+	 <body> 
+	 <h2>OnlineFitness</h2>
+	  <nav>
+	  <div class="navigation">  
+	 	<ul>     
+	 			<li ><a href="trainers" >Trainers</a></li>
+	 		<li ><a href="clients" >Clients</a></li>
+	 		<li ><a href="appointments">Appointments</a></li>
+	 	</ul>     
+	 	</div >
+	</nav>
+	
+	 <section class="registrationForm">
+	<div class = "registrationForm">
+	<table th:unless="${session.user == null}"> 
+	<tr><th>You're logged in as:</th><td><a th:href="|users/details?id=${session.user.id}|" th:text="${session.user.email}"></a>.</td></tr>
+		<tr>
+			<td colspan="2">
+				<ul>
+					<li><a href="users/logout">Logout</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	<table th:if="${session.user == null}">
+		<tr><th>You're not logged in: </th></tr>
+		<tr>
+			<td>
+				<ul>
+					<li><a href="registration.html">Registration</a></li>
+					<li><a href="login.html">Login</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	</div>
+	</section>
+	
+	  <section class="content">
+	<div class = "content" >
+	 		<table>     
+	 			<caption>Clients</caption>     
+	 			<tr>      
+	 			   <th></th>     
+	 				<th></th>  
+	 				<th>Name</th>          
+	 				<th>Surname</th>   
+	 				<th>Email</th>   
+	 				<th>Phone Number</th>   
+	 				<th>Address</th>   
+	 				<th>Card number</th>   
+	 				<th>Native language</th>  
+	 			  	<th>Additional languages</th> 
+	 				<th>Role</th> 
+	 				<th>Height</th> 
+	 				<th>Weight</th> 
+	 				<th>Illness or conditions</th> 
+	 				<th>Goals</th> 
+	 				<th>Props</th> 
+	 				<th>Waist</th> 
+	 				<th>Stomach</th> 
+	 				<th></th>   
+	 			
+	 			</tr>
+	 			<tr th:each="itClient, status: ${clients}">
+	 			
+	 			<td class="broj" th:text="${(status.index + 1)+'.'}"></td>     
+	 			<td><a  
+	 				th:href="|clients/details?id=${itClient.id}|" th:text="${itClient.name}"></a></td>    
+	 	  
+	 				<td th:text="${itClient.name}"></td>    
+	 				<td th:text="${itClient.surname}"></td>    
+	 				<td th:text="${itClient.email}"></td>    
+	 				<td th:text="${itClient.phoneNumber}"></td>    
+	 				<td th:text="${itClient.address}"></td>    
+	 				<td th:text="${itClient.cardNumber}"></td>    
+	 				<td th:text="${itClient.nativeLanguage}"></td>    
+					 <td><span th:each="language : ${itClient.additionalLanguages}" 
+					  th:text="${language.name()} + ' '"></span> </td>
+	 				<td th:text="${itClient.role}"></td>    
+	 				<td th:text="${itClient.height}"></td>    
+	 				<td th:text="${itClient.weight}"></td>    
+	 				<td th:text="${itClient.illnessOrConditions}"></td>
+	 				<td><span th:each="goal : ${itClient.goals}" 
+					  th:text="${goal.name()} + ' '"></span> </td>
+					  <td><span th:each="prop : ${itClient.props}" 
+					  th:text="${prop.name()} + ' '"></span> </td>    
+	 				<td th:text="${itClient.waistCircumference}"></td>    
+	 				<td th:text="${itClient.stomachCircumference}"></td>    
+	 				
+	 				<td>    
+	 					<form  
+	 					method="post" action="clients/delete" >     
+	 						<input type="hidden"  name="id"  th:value="${itClient.id}">     
+	 						<input type="submit"  value="Delete" >    
+	 					</form>    
+	 				</td>   
+	 			</tr>
+	 		</table>
+	 		</div>
+	 		</section>
+	 		 <div class = 'btn'>  
+	 		<a href="clients/add" class = "btn">Add client</a>     
+	 	</div>
+	 	   
+	 </body>   
+ </html>	

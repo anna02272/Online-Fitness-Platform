@@ -43,6 +43,18 @@ public class Client extends User {
 		this.waistCircumference = waistCircumference;
 		this.stomachCircumference = stomachCircumference;
 	}
+	public Client(int id, String name, String surname, String email, String password, String phoneNumber,
+			String address, String cardNumber, ELanguage nativeLanguage, 
+			ERole role, int height, int weight, String illnessOrConditions, 
+			double waistCircumference, double stomachCircumference) {
+		super(id, name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, 
+				role);
+		this.height = height;
+		this.weight = weight;
+		this.illnessOrConditions = illnessOrConditions;
+		this.waistCircumference = waistCircumference;
+		this.stomachCircumference = stomachCircumference;
+	}
 
 	public int getHeight() {
         return height;
