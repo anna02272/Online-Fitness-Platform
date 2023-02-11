@@ -3,29 +3,30 @@
 <head>
 	<meta charset="UTF-8">
 	<base th:href="@{/}">
-	<link rel="stylesheet" type="text/css" href="css/StylesFrom.css"/>
+	<link rel="stylesheet" type="text/css" href="css/StylesForm.css"/>
+	<link rel="stylesheet" type="text/css" href="css/StylesMenu.css"/>
 	<title>Trainer</title>
 </head>
 <body>
-<h2>OnlineFitness</h2>
+<h2>OnlineFittness</h2>
 	 <nav>
 	  <div class="navigation">  
 	 	<ul>     
 	 		<li ><a href="trainers" >Trainers</a></li>
 	 		<li ><a href="clients" >Clients</a></li>
 	 		<li ><a href="appointments">Appointments</a></li>   
-	 		<li><a href="">Logout</a></li>  
+	 		<li><a href="">Logout</a></li> 
 	 	</ul>     
 	 	</div>
 	</nav>
 	
 	<section class="content">
-	<div class = "content">
+	<div class = "content"> 
 	<form method="post" action="trainers/edit">
 		<input type="hidden" name="id" th:value="${trainer.id}"/>
 		<table class="forma">
-			<caption>Trainer</caption>
-				<tr><th>Name:</th><td><input type="text" th:value="${trainer.name}" name="name" /></td></tr>
+				<caption>Trainer</caption>
+			<tr><th>Name:</th><td><input type="text" th:value="${trainer.name}" name="name" /></td></tr>
 			<tr><th>Surname:</th><td><input type="text"  th:value="${trainer.surname}" name="surname" required/></td></tr>
 			<tr><th>Email:</th><td><input type="text"  th:value="${trainer.email}" name="email" required /></td></tr>
 			<tr><th>Password:</th><td><input type="password"  th:value="${trainer.password}" name="password" required/></td></tr>
@@ -82,18 +83,18 @@
  			
 			<tr><th></th><td><input type="submit" value="Update"/></td></tr>
 		
+			
+		
 		</table>
 	</form>
-	
 	<form method="post" action="trainers/delete">
-		<input type="hidden" name="id" th:value="${trainer.id}"/>
+		<input type="hidden" name="id" th:value="${trainerid}"/>
 		<table class="forma">
 			<tr><th></th><td><input type="submit" value="Delete"/></td></tr>
 		</table>
 	</form>
+	
 	</div>
 	</section>
-	
-	
 </body>
 </html>
