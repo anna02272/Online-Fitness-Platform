@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<base th:href="@{/}">
+	<link rel="stylesheet" type="text/css" href="css/StylesFrom.css"/>
+	<title>Trainer</title>
+</head>
+<body>
+<h2>OnlineFitness</h2>
+	 <nav>
+	  <div class="navigation">  
+	 	<ul>     
+	 		<li ><a href="trainers" >Trainers</a></li>
+	 		<li ><a href="clients" >Clients</a></li>
+	 		<li ><a href="appointments">Appointments</a></li>   
+	 		<li><a href="">Logout</a></li>  
+	 	</ul>     
+	 	</div>
+	</nav>
+	
+	<section class="content">
+	<div class = "content">
+	<form method="post" action="trainers/edit">
+		<input type="hidden" name="id" th:value="${trainer.id}"/>
+		<table class="forma">
+			<caption>Trainer</caption>
+				<tr><th>Name:</th><td><input type="text" th:value="${trainer.name}" name="name" /></td></tr>
+			<tr><th>Surname:</th><td><input type="text"  th:value="${trainer.surname}" name="surname" required/></td></tr>
+			<tr><th>Email:</th><td><input type="text"  th:value="${trainer.email}" name="email" required /></td></tr>
+			<tr><th>Password:</th><td><input type="password"  th:value="${trainer.password}" name="password" required/></td></tr>
+			<tr><th>Phone number:</th><td><input type="text"  th:value="${trainer.phoneNumber}" name="phoneNumber" required /></td></tr>
+			<tr><th>Address:</th><td><input type="text" th:value="${trainer.address}" name="address" required/></td></tr>
+			<tr><th>Card number:</th><td><input type="text"  th:value="${trainer.cardNumber}" name="cardNumber" required/></td></tr>
+			<tr>
+ 				<th>Native language:</th>
+				<td>
+			    <select name="language">
+			      <option th:each="elanguage: ${T(com.ftn.OnlineFitness.model.ELanguage).values()}" 
+			                th:value="${elanguage}" 
+			              th:text="${elanguage}"
+			               th:selected="${elanguage == trainer.nativeLanguage}">
+			      </option>
+			    </select>
+			  </td>
+			  <tr>
+				  <th>Additional languages:</th>
+				  <td>
+				    <select name="additionalLanguages" multiple>
+				      <option th:each="language: ${T(com.ftn.OnlineFitness.model.ELanguage).values()}" 
+				                th:value="${language}" 
+				              th:text="${language}"
+				               th:selected="${elanguage == trainer.additionalLanguages}">
+				      </option>
+				    </select>
+				  </td>
+				</tr>
+				<tr>
+ 				<th>Role:</th>
+				<td>
+			    <select name="role">
+			      <option th:each="erole: ${T(com.ftn.OnlineFitness.model.ERole).values()}" 
+			                th:value="${erole}" 
+			              th:text="${erole}"
+			               th:selected="${erole == trainer.role}">
+			      </option>
+			    </select>
+			  </td>
+			  <tr>
+				<tr><th>Certificate:</th><td><input type="text" th:value="${trainer.certificate}" name="certificate" /></td></tr>
+			<tr><th>Diploma:</th><td><input type="text" th:value ="${trainer.diploma}" name="diploma" required/></td></tr>
+			<tr><th>Title:</th><td><input type="text"  th:value ="${trainer.title}" name="title" required /></td></tr>
+			<tr>
+			  <th>Is Active:</th>
+			  <td>
+			    <input type="checkbox" name="isActive" th:checked="${trainer.isActive}" />
+			  </td>
+			</tr>
+			<tr><th>Salary:</th><td><input type="text"  th:value ="${trainer.salary}" name="salary" required/></td></tr>
+			
+ 			
+			<tr><th></th><td><input type="submit" value="Update"/></td></tr>
+		
+		</table>
+	</form>
+	
+	<form method="post" action="trainers/delete">
+		<input type="hidden" name="id" th:value="${trainer.id}"/>
+		<table class="forma">
+			<tr><th></th><td><input type="submit" value="Delete"/></td></tr>
+		</table>
+	</form>
+	</div>
+	</section>
+	
+	
+</body>
+</html>

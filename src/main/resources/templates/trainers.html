@@ -1,0 +1,109 @@
+<!DOCTYPE html> 
+	<html xmlns:th="http://www.thymeleaf.org">     
+	<head>     
+		<meta charset="UTF-8">     
+		<base th:href="@{/}">
+		<title>Trainers</title>     
+		<link rel="stylesheet"  type="text/css"  href="css/StylesTable.css"/>     
+	 	<link rel="stylesheet"  type="text/css" href="css/StylesMenu.css"/>   
+	 </head>     
+	 <body> 
+	 <h2>OnlineFitness</h2>
+	  <nav>
+	  <div class="navigation">  
+	 	<ul>     
+	 			<li ><a href="trainers" >Trainers</a></li>
+	 		<li ><a href="clients" >Clients</a></li>
+	 		<li ><a href="appointments">Appointments</a></li>
+	 	</ul>     
+	 	</div >
+	</nav>
+	
+	 <section class="registrationForm">
+	<div class = "registrationForm">
+	<table th:unless="${session.user == null}"> 
+	<tr><th>You're logged in as:</th><td><a th:href="|users/details?id=${session.user.id}|" th:text="${session.user.email}"></a>.</td></tr>
+		<tr>
+			<td colspan="2">
+				<ul>
+					<li><a href="users/logout">Logout</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	<table th:if="${session.user == null}">
+		<tr><th>You're not logged in: </th></tr>
+		<tr>
+			<td>
+				<ul>
+					<li><a href="registration.html">Registration</a></li>
+					<li><a href="login.html">Login</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	</div>
+	</section>
+	
+	  <section class="content">
+	<div class = "content" >
+	 		<table>     
+	 			<caption>Trainers</caption>     
+	 			<tr>      
+	 			   <th></th>     
+	 				<th></th>  
+	 				<th>Name</th>          
+	 				<th>Surname</th>   
+	 				<th>Email</th>   
+	 				<th>Phone Number</th>   
+	 				<th>Address</th>   
+	 				<th>Card number</th>   
+	 				<th>Native language</th>  
+	 			<!--  	<th>Additional languages</th> -->
+	 				<th>Role</th> 
+	 				<th>Certificate</th> 
+	 				<th>Diploma</th> 
+	 				<th>Title</th> 
+	 				<th>isActive</th> 
+	 				<th>Salary</th> 
+	 				<th></th>   
+	 			
+	 			</tr>
+	 			<tr th:each="itTrainer, status: ${trainers}">
+	 			
+	 			<td class="broj" th:text="${(status.index + 1)+'.'}"></td>     
+	 				<td><a  
+	 				th:href="|trainers/details?id=${itTrainer.id}|" th:text="${itTrainer.name}"></a></td>    
+	 	  
+	 				<td th:text="${itTrainer.name}"></td>    
+	 				<td th:text="${itTrainer.surname}"></td>    
+	 				<td th:text="${itTrainer.email}"></td>    
+	 				<td th:text="${itTrainer.phoneNumber}"></td>    
+	 				<td th:text="${itTrainer.address}"></td>    
+	 				<td th:text="${itTrainer.cardNumber}"></td>    
+	 				<td th:text="${itTrainer.nativeLanguage}"></td>    
+	 	<!--  		<td th:text="${itTrainer.additionalLanguages}"></td> -->   
+	 				<td th:text="${itTrainer.role}"></td>    
+	 				<td th:text="${itTrainer.certificate}"></td>    
+	 				<td th:text="${itTrainer.diploma}"></td>    
+	 				<td th:text="${itTrainer.title}"></td>    
+	 				<td th:text="${itTrainer.active}"></td>    
+	 				<td th:text="${itTrainer.salary}"></td>    
+	 				
+	 				<td>    
+	 					<form  
+	 					method="post" action="trainers/delete" >     
+	 						<input type="hidden"  name="id"  th:value="${itTrainer.id}">     
+	 						<input type="submit"  value="Delete" >    
+	 					</form>    
+	 				</td>   
+	 			</tr>
+	 		</table>
+	 		</div>
+	 		</section>
+	 		 <div class = 'btn'>  
+	 		<a href="trainers/add" class = "btn">Add trainer</a>     
+	 	</div>
+	 	   
+	 </body>   
+ </html>	
