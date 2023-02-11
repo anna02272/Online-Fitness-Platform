@@ -3,7 +3,7 @@
  <head>    
  	<meta charset="UTF-8">    
  	<base th:href="@{/}">        
- 	<title>Add trainer</title>    
+ 	<title>Add client</title>    
  	<link rel="stylesheet" type="text/css" href="css/StylesForm.css"/>    
  	<link rel="stylesheet" type="text/css" href="css/StylesMenu.css"/>  
  	
@@ -26,9 +26,9 @@
 	
 	<section class="content">
 	<div class = "content"> 
- 	<form method="post" action="trainers/add">    
+ 	<form method="post" action="clients/add">    
  		<table>    
- 			<caption>Trainer</caption>    
+ 			<caption>Client</caption>    
  			<tr><th>Name:</th><td><input type="text" value="" name="name" /></td></tr>
 			<tr><th>Surname:</th><td><input type="text" value="" name="surname" required/></td></tr>
 			<tr><th>Email:</th><td><input type="text" value="" name="email" required /></td></tr>
@@ -68,10 +68,33 @@
 			    </select>
 			  </td>
 			  <tr>
-			<tr><th>Certificate:</th><td><input type="text" value="" name="certificate" /></td></tr>
-			<tr><th>Diploma:</th><td><input type="text" value="" name="diploma" required/></td></tr>
-			<tr><th>Title:</th><td><input type="text" value="" name="title" required /></td></tr>
-			<tr><th>Salary:</th><td><input type="number" value="" name="salary" required/></td></tr>
+			<tr><th>Height:</th><td><input type="number" value="" name="height" /></td></tr>
+			<tr><th>Weight:</th><td><input type="number" value="" name="weight" required/></td></tr>
+			<tr><th>Illness or conditions:</th><td><input type="text" value="" name="illnessOrConditions" required /></td></tr>
+			 <tr>
+				  <th>Goals:</th>
+				  <td>
+				    <select name="goals" multiple>
+				      <option th:each="goal: ${T(com.ftn.OnlineFitness.model.EGoals).values()}" 
+				                th:value="${goal}" 
+				              th:text="${goal}">
+				      </option>
+				    </select>
+				  </td>
+				</tr>
+				 <tr>
+				  <th>Props:</th>
+				  <td>
+				    <select name="props" multiple>
+				      <option th:each="prop: ${T(com.ftn.OnlineFitness.model.EProps).values()}" 
+				                th:value="${prop}" 
+				              th:text="${prop}">
+				      </option>
+				    </select>
+				  </td>
+				</tr>
+			<tr><th>Waist circumference:</th><td><input type="number" value="" name="waistCircumference" required/></td></tr>
+			<tr><th>Stomach circumference:</th><td><input type="number" value="" name="stomachCircumference" required/></td></tr>
 			
  		   
  			<tr><th></th><td><input type="submit" value="Add"/></td>    
