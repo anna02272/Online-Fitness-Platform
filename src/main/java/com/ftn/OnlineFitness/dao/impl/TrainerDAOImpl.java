@@ -51,8 +51,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 			String phoneNumber = resultSet.getString(index++);
 			String address = resultSet.getString(index++);
 			String cardNumber = resultSet.getString(index++);
-			ELanguage nativeLanguage = ELanguage.valueOf(resultSet.getString(index++));
-			
+			ELanguage nativeLanguage = ELanguage.valueOf(resultSet.getString(index++));		
 		
 			ERole role = ERole.valueOf(resultSet.getString(index++));
 			String certificate = resultSet.getString(index++);
@@ -112,7 +111,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 			
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-				String sql = "INSERT INTO Trainer (name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, role, certificate, diploma, title, isActive, salary) VALUES (?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				String sql = "INSERT INTO Trainer (name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, role, certificate, diploma, title, isActive, salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				 
 				PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int index = 1;
@@ -151,7 +150,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 				+ " isActive = ?, salary = ? WHERE id = ?";
 		boolean uspeh = jdbcTemplate.update(sql, trainer.getName(), trainer.getSurname(),  trainer.getEmail(),
 				trainer.getPassword(), trainer.getPhoneNumber(), trainer.getAddress(), trainer.getCardNumber(), 
-				trainer.getNativeLanguage(),trainer.getCertificate(), trainer.getDiploma(), trainer.getTitle(), 
+				trainer.getNativeLanguage().name(),trainer.getCertificate(), trainer.getDiploma(), trainer.getTitle(), 
 				trainer.isActive(), trainer.getSalary(), trainer.getId()) == 1;
 		
 		return uspeh?1:0;

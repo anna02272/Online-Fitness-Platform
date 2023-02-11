@@ -70,12 +70,12 @@ public class TrainerController implements ServletContextAware {
 				@RequestParam(required = true) String cardNumber, @RequestParam(required = true) ELanguage nativeLanguage,
 				 @RequestParam(required = false) List<ELanguage> additionalLanguages, @RequestParam (required = true) ERole role,
 				 @RequestParam(required = true) String certificate, @RequestParam(required = true) String diploma,
-				 @RequestParam(required = true) String title, @RequestParam(required = true) boolean isActive,
+				 @RequestParam(required = true) String title,
 				 @RequestParam(required = true) double salary,
 				HttpServletResponse response) throws IOException {		
 			Trainer trainer = new Trainer( name, surname, email, password, phoneNumber, address, cardNumber, 
 					nativeLanguage, additionalLanguages, role,
-					certificate, diploma, title, isActive, salary);
+					certificate, diploma, title, false, salary);
 			Trainer saved = trainerService.save(trainer);
 			response.sendRedirect(bURL+"trainers");
 		}
@@ -89,7 +89,7 @@ public class TrainerController implements ServletContextAware {
 				@RequestParam(required = true) String cardNumber, @RequestParam(required = true) ELanguage nativeLanguage,
 				 @RequestParam(required = false) List<ELanguage> additionalLanguages, @RequestParam (required = true) ERole role,
 				 @RequestParam(required = true) String certificate, @RequestParam(required = true) String diploma,
-				 @RequestParam(required = true) String title, @RequestParam(required = true) boolean isActive,
+				 @RequestParam(required = true) String title, @RequestParam(required = false, defaultValue="false") boolean isActive,
 				 @RequestParam(required = true) double salary, HttpServletResponse response) throws IOException {	
 			Trainer trainer = trainerService.findOne(id);
 			if(trainer != null) {
@@ -120,9 +120,8 @@ public class TrainerController implements ServletContextAware {
 					trainer.setDiploma(diploma);
 				if(title != null && !title.trim().equals(""))
 					trainer.setTitle(title);
-				if (isActive) {
-					  trainer.setActive(isActive);
-				}
+				trainer.setActive(isActive);
+
 				if (salary >= 0) {
 					  trainer.setSalary(salary);
 				}

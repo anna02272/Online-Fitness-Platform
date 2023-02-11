@@ -38,7 +38,7 @@
 			<tr>
  				<th>Native language:</th>
 				<td>
-			    <select name="language">
+			    <select name="nativeLanguage">
 			      <option th:each="elanguage: ${T(com.ftn.OnlineFitness.model.ELanguage).values()}" 
 			                th:value="${elanguage}" 
 			              th:text="${elanguage}">
@@ -70,12 +70,12 @@
 				<tr><th>Certificate:</th><td><input type="text" value="" name="certificate" /></td></tr>
 			<tr><th>Diploma:</th><td><input type="text" value="" name="diploma" required/></td></tr>
 			<tr><th>Title:</th><td><input type="text" value="" name="title" required /></td></tr>
-			<tr>
+			<!--<tr>
 			  <th>Is Active:</th>
 			  <td>
 			    <input type="checkbox" name="isActive"  />
 			  </td>
-			</tr>
+			</tr> - -->
 			<tr><th>Salary:</th><td><input type="text" value="" name="salary" required/></td></tr>
 			
  			
