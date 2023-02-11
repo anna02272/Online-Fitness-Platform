@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ftn.OnlineFitness.dao.TrainerDAO;
+import com.ftn.OnlineFitness.model.ELanguage;
 import com.ftn.OnlineFitness.model.Trainer;
 import com.ftn.OnlineFitness.service.TrainerService;
 
@@ -45,6 +46,11 @@ public class DatabaseTrainerServiceImpl implements TrainerService{
 			trainerDAO.delete(id);
 		}
 		return trainer;
+	}
+	
+	@Override
+	public List<ELanguage> getTrainerLanguages(int id) {
+         return trainerDAO.getTrainerLanguages(id);		
 	}
 
 }

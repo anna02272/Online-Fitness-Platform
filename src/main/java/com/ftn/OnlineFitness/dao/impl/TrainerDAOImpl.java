@@ -6,12 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -138,6 +137,17 @@ public class TrainerDAOImpl implements TrainerDAO {
 		};
 		GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 		boolean uspeh = jdbcTemplate.update(preparedStatementCreator, keyHolder) == 1;
+		
+		
+		 if (uspeh) {
+		        long trainerId = keyHolder.getKey().longValue();
+		        String sql = "INSERT INTO trainerSpeaks (trainerId, speaksLangague) VALUES (?, ?)";
+		        for (ELanguage additionalLanguage : trainer.getAdditionalLanguages()) {
+		            jdbcTemplate.update(sql, new Object[]{trainerId, additionalLanguage.name()});
+		        }
+		    }
+		
+		
 		return uspeh?1:0;
 	}
 	
@@ -148,10 +158,20 @@ public class TrainerDAOImpl implements TrainerDAO {
 		String sql = "UPDATE Trainer SET name = ?, surname = ?, email = ?, password = ?, phoneNumber = ?,"
 				+ " address = ?, cardNumber = ?, nativeLanguage = ?, certificate = ?, diploma = ?, title = ?,"
 				+ " isActive = ?, salary = ? WHERE id = ?";
+		
 		boolean uspeh = jdbcTemplate.update(sql, trainer.getName(), trainer.getSurname(),  trainer.getEmail(),
 				trainer.getPassword(), trainer.getPhoneNumber(), trainer.getAddress(), trainer.getCardNumber(), 
 				trainer.getNativeLanguage().name(),trainer.getCertificate(), trainer.getDiploma(), trainer.getTitle(), 
 				trainer.isActive(), trainer.getSalary(), trainer.getId()) == 1;
+		
+		String deleteSql = "DELETE FROM trainerSpeaks WHERE trainerId = ?";
+		jdbcTemplate.update(deleteSql, trainer.getId());
+		
+		String insertSql = "INSERT INTO trainerSpeaks (trainerId, speaksLangague) values (?,?)";
+		for (ELanguage language : trainer.getAdditionalLanguages()) {
+			jdbcTemplate.update(insertSql, trainer.getId(), language.name());
+		}
+		
 		
 		return uspeh?1:0;
 	}
@@ -160,7 +180,18 @@ public class TrainerDAOImpl implements TrainerDAO {
 	@Override
 	public int delete(int id) {
 		String sql = "DELETE FROM Trainer WHERE id = ?";
+		String sql2 = "DELETE FROM trainerSpeaks WHERE trainerId = ?";
+		jdbcTemplate.update(sql2, id);
 		return jdbcTemplate.update(sql, id);
+	}
+	
+	@Transactional
+	@Override
+	public List<ELanguage> getTrainerLanguages(int id) {
+		String sql = "SELECT speaksLangague FROM trainerSpeaks WHERE trainerId = ?";
+		List<String> languageStrings = jdbcTemplate.queryForList(sql, new Object[] { id }, String.class);
+		List<ELanguage> languages = languageStrings.stream().map(ELanguage::valueOf).collect(Collectors.toList());
+		return languages;
 	}
 	
 }

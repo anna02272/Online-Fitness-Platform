@@ -82,7 +82,7 @@
 	 				<td th:text="${itTrainer.address}"></td>    
 	 				<td th:text="${itTrainer.cardNumber}"></td>    
 	 				<td th:text="${itTrainer.nativeLanguage}"></td>    
-	 	  		<td th:text="${itTrainer.additionalLanguages}"></td>
+  <td>  <span th:each="language : ${itTrainer.additionalLanguages}" th:text="${language.name()} + ' '"></span> </td>
 	 				<td th:text="${itTrainer.role}"></td>    
 	 				<td th:text="${itTrainer.certificate}"></td>    
 	 				<td th:text="${itTrainer.diploma}"></td>    

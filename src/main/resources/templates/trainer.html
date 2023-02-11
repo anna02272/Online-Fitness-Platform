@@ -46,12 +46,13 @@
 			  <tr>
 				  <th>Additional languages:</th>
 				  <td>
-				    <select name="additionalLanguages" multiple>
-				      <option th:each="language: ${T(com.ftn.OnlineFitness.model.ELanguage).values()}" 
-				                th:value="${language}" 
-				              th:text="${language}"
-				               th:selected="${elanguage == trainer.additionalLanguages}">
-				      </option>
+				    <select name="trainerLanguages" multiple>
+				     <option th:each="language: ${T(com.ftn.OnlineFitness.model.ELanguage).values()}" 
+           th:value="${language}" 
+            th:text="${language}"
+          th:selected="${trainerLanguages.contains(language)}">
+     </option>
+
 				    </select>
 				  </td>
 				</tr>
