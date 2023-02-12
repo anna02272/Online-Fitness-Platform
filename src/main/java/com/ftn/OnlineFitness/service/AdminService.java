@@ -13,6 +13,9 @@ public interface AdminService {
 	Admin getByEmail(String email);
 	Admin getByPhoneNumber(String phoneNumber);
 	Admin getByCardNumber(String cardNumber);
+	
+	//IZMENJENO
+	Admin getByEmailAndPassword(String email,String password);
 
 
 }

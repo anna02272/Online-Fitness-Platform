@@ -28,7 +28,6 @@ import com.ftn.OnlineFitness.model.ERole;
 import com.ftn.OnlineFitness.model.Trainer;
 
 
-
 @Repository
 public class AdminDAOImpl implements AdminDAO {
 
@@ -177,6 +176,31 @@ public class AdminDAOImpl implements AdminDAO {
 		   }
 		return rowCallbackHandler.getAdmins().get(0);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public Admin getByEmailAndPassword(String email, String lozinka) {
+		 String sql = "SELECT * FROM Admin a " +
+                 "WHERE a.email = ?  AND a.password = ?" + 
+                 "ORDER BY a.id";
+   
+	
+
+   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+   jdbcTemplate.query(sql, rowCallbackHandler, email, lozinka);
+   if (rowCallbackHandler.getAdmins().isEmpty()) {
+	   return null;
+   }
+   return rowCallbackHandler.getAdmins().get(0);
+   
+	}
+	
 	
 	
 	

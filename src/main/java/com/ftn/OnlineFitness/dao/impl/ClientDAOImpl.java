@@ -22,6 +22,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ftn.OnlineFitness.dao.ClientDAO;
+import com.ftn.OnlineFitness.model.Admin;
 import com.ftn.OnlineFitness.model.Client;
 import com.ftn.OnlineFitness.model.EGoals;
 import com.ftn.OnlineFitness.model.ELanguage;
@@ -285,6 +286,23 @@ public class ClientDAOImpl implements ClientDAO {
 	   }
 	   return rowCallbackHandler.getClients().get(0);
    
+   
+	}
+	
+	@Override
+	public Client getByEmailAndPassword(String email, String lozinka) {
+		 String sql = "SELECT * FROM ClientTable c " +
+                 "WHERE c.email = ?  AND c.password = ?" + 
+                 "ORDER BY c.id";
+   
+	
+
+   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+   jdbcTemplate.query(sql, rowCallbackHandler, email, lozinka);
+   if (rowCallbackHandler.getClients().isEmpty()) {
+	   return null;
+   }
+   return rowCallbackHandler.getClients().get(0);
    
 	}
 	

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ftn.OnlineFitness.dao.TrainerDAO;
+import com.ftn.OnlineFitness.model.Client;
 import com.ftn.OnlineFitness.model.ELanguage;
 import com.ftn.OnlineFitness.model.ERole;
 import com.ftn.OnlineFitness.model.Trainer;
@@ -238,6 +239,25 @@ public class TrainerDAOImpl implements TrainerDAO {
    
    
 	}
+	
+	@Override
+	public Trainer getByEmailAndPassword(String email, String lozinka) {
+		 String sql = "SELECT * FROM Trainer t " +
+                 "WHERE t.email = ?  AND t.password = ?" + 
+                 "ORDER BY t.id";
+   
+	
+
+   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+   jdbcTemplate.query(sql, rowCallbackHandler, email, lozinka);
+   if (rowCallbackHandler.getTrainers().isEmpty()) {
+	   return null;
+   }
+   return rowCallbackHandler.getTrainers().get(0);
+   
+	}
+	
+	
 	
 	
 	

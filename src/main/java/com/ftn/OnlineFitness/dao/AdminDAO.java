@@ -22,4 +22,8 @@ public interface AdminDAO {
 	
 	public Admin getByCardNumber(String cardNumber);
 
+	//DODATO
+	public Admin getByEmailAndPassword(String email,String password);
+	
+	
 }
