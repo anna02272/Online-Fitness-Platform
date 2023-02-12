@@ -144,18 +144,23 @@ public class ClientDAOImpl implements ClientDAO {
 		boolean uspeh = jdbcTemplate.update(preparedStatementCreator, keyHolder) == 1;
 		 if (uspeh) {
 		        long clientId = keyHolder.getKey().longValue();
+		        if (client.getAdditionalLanguages() != null) {
 		        String sql = "INSERT INTO clientSpeaks (clientId, speaksLangague) VALUES (?, ?)";
 		        for (ELanguage additionalLanguage : client.getAdditionalLanguages()) {
 		            jdbcTemplate.update(sql, new Object[]{clientId, additionalLanguage.name()});
 		        }
-		
+		       }
+		        if (client.getProps() != null) {
 		        String sql1 = "INSERT INTO clientGoals(clientId, goal) VALUES (?, ?)";
 		        for (EGoals goal : client.getGoals()) {
 		            jdbcTemplate.update(sql1, new Object[]{clientId, goal.name()});
 		        }
+		        }
+		        if (client.getGoals() != null) {
 		        String sql2 = "INSERT INTO clientProps (clientId, prop) VALUES (?, ?)";
 		        for (EProps prop : client.getProps()) {
 		            jdbcTemplate.update(sql2, new Object[]{clientId, prop.name()});
+		        }
 		        }
 		    }
 		
@@ -235,6 +240,54 @@ public class ClientDAOImpl implements ClientDAO {
 		List<EProps> props = propStrings.stream().map(EProps::valueOf).collect(Collectors.toList());
 		return props;
 	}
+	
+	
+	@Override
+	public Client findByEmail(String email) {
+		 String sql = "SELECT * FROM ClientTable c " +
+                 "WHERE c.email = ?" + 
+                 "ORDER BY c.id";
+	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+	   jdbcTemplate.query(sql, rowCallbackHandler, email);
+	   if (rowCallbackHandler.getClients().isEmpty()) {
+		   return null;
+	   }
+	   return rowCallbackHandler.getClients().get(0);
+   
+   
+	}
+	
+	@Override
+	public Client findByPhoneNumber(String phoneNumber) {
+		 String sql = "SELECT * FROM ClientTable c " +
+                 "WHERE c.phoneNumber = ?" + 
+                 "ORDER BY c.id";
+	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+	   jdbcTemplate.query(sql, rowCallbackHandler, phoneNumber);
+	   if (rowCallbackHandler.getClients().isEmpty()) {
+		   return null;
+	   }
+	   return rowCallbackHandler.getClients().get(0);
+   
+   
+	}
+	
+	
+	@Override
+	public Client findByCardNumber(String cardNumber) {
+		 String sql = "SELECT * FROM ClientTable c " +
+                 "WHERE c.cardNumber = ?" + 
+                 "ORDER BY c.id";
+	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+	   jdbcTemplate.query(sql, rowCallbackHandler, cardNumber);
+	   if (rowCallbackHandler.getClients().isEmpty()) {
+		   return null;
+	   }
+	   return rowCallbackHandler.getClients().get(0);
+   
+   
+	}
+	
 	
 	
 }

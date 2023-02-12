@@ -1,7 +1,9 @@
 package com.ftn.OnlineFitness.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -63,6 +65,8 @@ public class TrainerController implements ServletContextAware {
 
 		@GetMapping(value="/add")
 		public String create(HttpSession session, HttpServletResponse response){
+			
+			
 			return "addTrainer"; 
 		}
 
@@ -77,7 +81,11 @@ public class TrainerController implements ServletContextAware {
 				 @RequestParam(required = true) String certificate, @RequestParam(required = true) String diploma,
 				 @RequestParam(required = true) String title,
 				 @RequestParam(required = true) double salary,
-				HttpServletResponse response) throws IOException {		
+				HttpServletResponse response) throws IOException {
+			
+			
+			
+			
 			Trainer trainer = new Trainer( name, surname, email, password, phoneNumber, address, cardNumber, 
 					nativeLanguage, additionalLanguages, role,
 					certificate, diploma, title, false, salary);
@@ -96,6 +104,7 @@ public class TrainerController implements ServletContextAware {
 				 @RequestParam(required = true) String certificate, @RequestParam(required = true) String diploma,
 				 @RequestParam(required = true) String title, @RequestParam(required = false, defaultValue="false") boolean isActive,
 				 @RequestParam(required = true) double salary, HttpServletResponse response) throws IOException {	
+			
 			Trainer trainer = trainerService.findOne(id);
 			
 			
@@ -153,11 +162,15 @@ public class TrainerController implements ServletContextAware {
 		public ModelAndView details(@RequestParam int id) {	
 			Trainer trainer = trainerService.findOne(id);
 			List<ELanguage> trainerLanguages = trainerService.getTrainerLanguages(id);
-
+			List<ERole> filteredRoles = Arrays.stream(ERole.values())
+	                .filter(roleTrainer -> roleTrainer != ERole.ADMIN)
+	                .filter(roleTrainer -> roleTrainer != ERole.CLIENT)
+	                .collect(Collectors.toList());
 			
 		
 			ModelAndView rezultat = new ModelAndView("trainer"); 
-			rezultat.addObject("trainer", trainer); 
+			rezultat.addObject("trainer", trainer);
+			rezultat.addObject("filteredRoles",filteredRoles);
 			rezultat.addObject("trainerLanguages", trainerLanguages);
 
 			return rezultat; 

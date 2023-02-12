@@ -87,3 +87,10 @@ nav .navigation ul li a:hover {
 p.greska {
 	color: red;
 }
+
+
+.alert-danger {
+    color: red;
+    font-style: italic;
+}
+

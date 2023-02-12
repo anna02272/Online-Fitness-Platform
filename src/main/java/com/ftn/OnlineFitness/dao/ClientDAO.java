@@ -25,4 +25,12 @@ public interface ClientDAO {
 	public List<EGoals> getClientGoals(int id);
 	
 	public List<EProps> getClientProps(int id);
+	
+	public Client findByEmail(String email);
+	
+	public Client findByPhoneNumber(String phoneNumber);
+	
+	public Client findByCardNumber(String cardNumber);
+
+
 }

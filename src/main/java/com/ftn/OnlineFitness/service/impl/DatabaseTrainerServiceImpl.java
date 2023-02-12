@@ -52,6 +52,22 @@ public class DatabaseTrainerServiceImpl implements TrainerService{
 	public List<ELanguage> getTrainerLanguages(int id) {
          return trainerDAO.getTrainerLanguages(id);		
 	}
+	
+	@Override
+	public Trainer findByEmail(String email) {
+		return trainerDAO.findByEmail(email);
+	}
+	
+	@Override
+	public Trainer findByPhoneNumber(String phoneNumber) {
+		return trainerDAO.findByPhoneNumber(phoneNumber);
+	}
+	
+	@Override
+	public Trainer findByCardNumber(String cardNumber) {
+		return trainerDAO.findByCardNumber(cardNumber);
+	}
+
 
 }
 

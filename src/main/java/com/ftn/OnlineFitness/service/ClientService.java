@@ -19,6 +19,9 @@ public interface ClientService {
 	List<ELanguage> getClientLanguages(int id);
 	List<EGoals> getClientGoals(int id);
 	List<EProps> getClientProps(int id);
+	Client findByEmail(String email);
+	Client findByPhoneNumber(String phoneNumber);
+	Client findByCardNumber(String cardNumber);
 
 
 

@@ -14,6 +14,10 @@ public interface TrainerService {
 	Trainer update(Trainer trainer); 
 	Trainer delete(int id);
 	List<ELanguage> getTrainerLanguages(int id);
+	Trainer findByEmail(String email);
+	Trainer findByCardNumber(String cardNumber);
+	Trainer findByPhoneNumber(String phoneNumber);
+
 
 
 }
