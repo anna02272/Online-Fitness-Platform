@@ -172,7 +172,7 @@ public class ClientDAOImpl implements ClientDAO {
 				+ "stomachCircumference = ? WHERE id = ?";
 		boolean uspeh = jdbcTemplate.update(sql, client.getName(), client.getSurname(),  client.getEmail(),
 				client.getPassword(), client.getPhoneNumber(), client.getAddress(), client.getCardNumber(), 
-				client.getNativeLanguage(),client.getHeight(), client.getWeight(), client.getIllnessOrConditions(), 
+				client.getNativeLanguage().name(),client.getHeight(), client.getWeight(), client.getIllnessOrConditions(), 
 				client.getWaistCircumference(), client.getStomachCircumference(), client.getId()) == 1;
 		
 		String deleteSql = "DELETE FROM clientSpeaks WHERE clientId = ?";
