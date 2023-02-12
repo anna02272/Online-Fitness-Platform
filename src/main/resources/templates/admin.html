@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<base th:href="@{/}">
+	<link rel="stylesheet" type="text/css" href="css/StylesForm.css"/>
+	<link rel="stylesheet" type="text/css" href="css/StylesMenu.css"/>
+	<title>Admin</title>
+</head>
+<body>
+<h2>OnlineFittness</h2>
+	 <nav>
+	  <div class="navigation">  
+	 	<ul>     
+	 		<li ><a href="trainers" >Trainers</a></li>
+	 		<li ><a href="clients" >Clients</a></li>
+	 		<li ><a href="admins" >Admin</a></li>
+	 		<li ><a href="appointments">Appointments</a></li>   
+	 		<li><a href="">Logout</a></li> 
+	 	</ul>     
+	 	</div>
+	</nav>
+	
+	<section class="content">
+	<div class = "content"> 
+	<form method="post" action="admins/edit">
+		<input type="hidden" name="id" th:value="${admin.id}"/>
+		<table class="forma">
+				<caption>admin</caption>
+			<tr><th>Name:</th><td><input type="text" th:value="${admin.name}" name="name" /></td></tr>
+			<tr><th>Surname:</th><td><input type="text"  th:value="${admin.surname}" name="surname" required/></td></tr>
+			<tr><th>Email:</th><td><input type="text"  th:value="${admin.email}" name="email" required /></td></tr>
+			<tr><th>Password:</th><td><input type="password"  th:value="${admin.password}" name="password" required/></td></tr>
+			<tr><th>Phone number:</th><td><input type="text"  th:value="${admin.phoneNumber}" name="phoneNumber" required /></td></tr>
+			<tr><th>Address:</th><td><input type="text" th:value="${admin.address}" name="address" required/></td></tr>
+			<tr><th>Card number:</th><td><input type="text"  th:value="${admin.cardNumber}" name="cardNumber" required/></td></tr>
+			<tr>
+ 				<th>Native language:</th>
+				<td>
+			    <select name="nativeLanguage">
+			      <option th:each="elanguage: ${T(com.ftn.OnlineFitness.model.ELanguage).values()}" 
+			                th:value="${elanguage}" 
+			              th:text="${elanguage}"
+			               th:selected="${elanguage == admin.nativeLanguage}">
+			      </option>
+			    </select>
+			  </td>
+			  <tr>
+				  <th>Additional languages:</th>
+				  <td>
+				    <select name="adminLanguages" multiple>
+				     <option th:each="language: ${T(com.ftn.OnlineFitness.model.ELanguage).values()}" 
+           th:value="${language}" 
+            th:text="${language}"
+          th:selected="${adminLanguages.contains(language)}">
+     </option>
+
+				    </select>
+				  </td>
+				</tr>
+				
+			<tr><th></th><td><input type="submit" value="Update"/></td></tr>
+		
+			
+		
+		</table>
+	</form>
+	
+	
+	</div>
+	</section>
+</body>
+</html>

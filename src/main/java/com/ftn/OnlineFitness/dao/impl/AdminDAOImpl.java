@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,6 +25,7 @@ import com.ftn.OnlineFitness.dao.AdminDAO;
 import com.ftn.OnlineFitness.model.Admin;
 import com.ftn.OnlineFitness.model.ELanguage;
 import com.ftn.OnlineFitness.model.ERole;
+import com.ftn.OnlineFitness.model.Trainer;
 
 
 
@@ -51,14 +53,6 @@ public class AdminDAOImpl implements AdminDAO {
 			String address = resultSet.getString(index++);
 			String cardNumber = resultSet.getString(index++);
 			ELanguage nativeLanguage = ELanguage.valueOf(resultSet.getString(index++));
-			List<ELanguage> additionalLanguages = new ArrayList<>();
-			String languageString = resultSet.getString(index++);
-			if (languageString != null) {
-			  String[] languages = languageString.split(",");
-			  for (String language : languages) {
-			    additionalLanguages.add(ELanguage.valueOf(language));
-			  }
-			}
 
 			ERole role = ERole.valueOf(resultSet.getString(index++));
 			
@@ -66,7 +60,7 @@ public class AdminDAOImpl implements AdminDAO {
 
 			Admin admin = admins.get(id);
 			if (admin == null) {
-				admin = new Admin(id, name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, additionalLanguages, role);
+				admin = new Admin(id, name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, role);
 				admins.put( (long) admin.getId(), admin); 
 			}
 			
@@ -105,53 +99,38 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 	
 
-	@Transactional
-	@Override
-	public int save(Admin admin) {
-		PreparedStatementCreator preparedStatementCreator = new PreparedStatementCreator() {
-			
-			@Override
-			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-				String sql = "INSERT INTO Admin (name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, role) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)";
-
-				PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				int index = 1;
-				preparedStatement.setString(index++, admin.getName());
-				preparedStatement.setString(index++, admin.getSurname());
-				preparedStatement.setString(index++, admin.getEmail());
-				preparedStatement.setString(index++, admin.getPassword());
-				preparedStatement.setString(index++, admin.getPhoneNumber());
-				preparedStatement.setString(index++, admin.getAddress());
-				preparedStatement.setString(index++, admin.getCardNumber());
-				ELanguage nativeLanguage = admin.getNativeLanguage();
-				preparedStatement.setString(index++, nativeLanguage.name());
-				ERole role = admin.getRole();
-				preparedStatement.setString(index++, role.name());
-
-				return preparedStatement;
-			}
-
-		};
-		GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
-		boolean uspeh = jdbcTemplate.update(preparedStatementCreator, keyHolder) == 1;
-		return uspeh?1:0;
-	}
 	
 	@Transactional
 	@Override
 	public int update(Admin admin) {	
 		
-		String sql = "UPDATE Admin SET name = ?, surname = ?, email = ?, password = ?, phoneNumber = ?, address = ?, cardNumber = ?, nativeLanguage = ? WHERE id = ?";
-		boolean uspeh = jdbcTemplate.update(sql, admin.getName(), admin.getSurname(),  admin.getEmail(),admin.getPassword(), admin.getPhoneNumber(), admin.getAddress(), admin.getCardNumber(), admin.getNativeLanguage(), admin.getId()) == 1;
+		String sql = "UPDATE Admin SET name = ?, surname = ?, email = ?, password = ?, phoneNumber = ?,"
+				+ " address = ?, cardNumber = ?, nativeLanguage = ? WHERE id = ?";
+		
+		boolean uspeh = jdbcTemplate.update(sql, admin.getName(), admin.getSurname(),  admin.getEmail(),
+				admin.getPassword(), admin.getPhoneNumber(), admin.getAddress(), admin.getCardNumber(), 
+				admin.getNativeLanguage().name(), admin.getId()) == 1;
+		
+		String deleteSql = "DELETE FROM adminSpeaks WHERE adminId = ?";
+		jdbcTemplate.update(deleteSql, admin.getId());
+		
+		String insertSql = "INSERT INTO adminSpeaks (adminId, speaksLangague) values (?,?)";
+		for (ELanguage language : admin.getAdditionalLanguages()) {
+			jdbcTemplate.update(insertSql, admin.getId(), language.name());
+		}
+		
 		
 		return uspeh?1:0;
 	}
 	
+	
 	@Transactional
 	@Override
-	public int delete(int id) {
-		String sql = "DELETE FROM admin WHERE id = ?";
-		return jdbcTemplate.update(sql, id);
+	public List<ELanguage> getAdminLanguages(int id) {
+		String sql = "SELECT speaksLangague FROM adminSpeaks WHERE adminId = ?";
+		List<String> languageStrings = jdbcTemplate.queryForList(sql, new Object[] { id }, String.class);
+		List<ELanguage> languages = languageStrings.stream().map(ELanguage::valueOf).collect(Collectors.toList());
+		return languages;
 	}
 	
 }

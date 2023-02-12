@@ -14,6 +14,7 @@
 	 	<ul>     
 	 		<li ><a href="trainers" >Trainers</a></li>
 	 		<li ><a href="clients" >Clients</a></li>
+	 		<li ><a href="admins" >Admin</a></li>
 	 		<li ><a href="appointments">Appointments</a></li>   
 	 		<li><a href="">Logout</a></li> 
 	 	</ul>     
@@ -57,18 +58,7 @@
 				    </select>
 				  </td>
 				</tr>
-				<tr>
- 				<th>Role:</th>
-				<td>
-			    <select name="role">
-			      <option th:each="erole: ${T(com.ftn.OnlineFitness.model.ERole).values()}" 
-			                th:value="${erole}" 
-			              th:text="${erole}"
-			               th:selected="${erole == client.role}">
-			      </option>
-			    </select>
-			  </td>
-			  <tr>
+				
 			<tr><th>Height:</th><td><input type="number" th:value="${client.height}" name="height" required/></td></tr>
 			<tr><th>Weight:</th><td><input type="number" th:value ="${client.weight}" name="weight" required/></td></tr>
 			<tr><th>Illness or condition:</th><td><input type="text"  th:value ="${client.illnessOrConditions}" name="illnessOrConditions" required /></td></tr>
