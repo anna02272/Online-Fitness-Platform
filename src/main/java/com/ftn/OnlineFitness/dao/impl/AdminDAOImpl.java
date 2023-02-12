@@ -133,4 +133,53 @@ public class AdminDAOImpl implements AdminDAO {
 		return languages;
 	}
 	
+	@Override
+	public Admin getByEmail(String email) {
+		String sql = 
+				"SELECT * FROM Admin  " + 
+				"WHERE email = ? " + 
+				"ORDER BY id";
+
+		RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+		jdbcTemplate.query(sql, rowCallbackHandler, email);
+		 if (rowCallbackHandler.getAdmins().isEmpty()) {
+			   return null;
+		   }
+		return rowCallbackHandler.getAdmins().get(0);
+	}
+	
+	@Override
+	public Admin getByPhoneNumber(String phoneNumber) {
+		String sql = 
+				"SELECT * FROM Admin  " + 
+				"WHERE phoneNumber = ? " + 
+				"ORDER BY id";
+
+		RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+		jdbcTemplate.query(sql, rowCallbackHandler, phoneNumber);
+		 if (rowCallbackHandler.getAdmins().isEmpty()) {
+			   return null;
+		   }
+		return rowCallbackHandler.getAdmins().get(0);
+	}
+	
+	@Override
+	public Admin getByCardNumber(String cardNumber) {
+		String sql = 
+				"SELECT * FROM Admin a " + 
+				"WHERE a.cardNumber = ?" + 
+				"ORDER BY a.id";
+
+		RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+		jdbcTemplate.query(sql, rowCallbackHandler, cardNumber);
+		 if (rowCallbackHandler.getAdmins().isEmpty()) {
+			   return null;
+		   }
+		return rowCallbackHandler.getAdmins().get(0);
+	}
+	
+	
+	
+	
+	
 }
