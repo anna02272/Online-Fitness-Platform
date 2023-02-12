@@ -3,7 +3,7 @@
 	<head>     
 		<meta charset="UTF-8">     
 		<base th:href="@{/}">
-		<title>Clients</title>     
+		<title>Admin</title>     
 		<link rel="stylesheet"  type="text/css"  href="css/StylesTable.css"/>     
 	 	<link rel="stylesheet"  type="text/css" href="css/StylesMenu.css"/>   
 	 </head>     
@@ -49,7 +49,7 @@
 	  <section class="content">
 	<div class = "content" >
 	 		<table>     
-	 			<caption>Clients</caption>     
+	 			<caption>Admin</caption>     
 	 			<tr>      
 	 			   <th></th>     
 	 				<th></th>  
@@ -62,56 +62,31 @@
 	 				<th>Native language</th>  
 	 			  	<th>Additional languages</th> 
 	 				<th>Role</th> 
-	 				<th>Height</th> 
-	 				<th>Weight</th> 
-	 				<th>Illness or conditions</th> 
-	 				<th>Goals</th> 
-	 				<th>Props</th> 
-	 				<th>Waist</th> 
-	 				<th>Stomach</th> 
-	 				<th></th>   
+	 				   
 	 			
 	 			</tr>
-	 			<tr th:each="itClient, status: ${clients}">
+	 			<tr th:each="itAdmin, status: ${admins}">
 	 			
 	 			<td class="broj" th:text="${(status.index + 1)+'.'}"></td>     
-	 			<td><a  
-	 				th:href="|clients/details?id=${itClient.id}|" th:text="${itClient.name}"></a></td>    
+	 				<td><a  
+	 				th:href="|admins/details?id=${itAdmin.id}|" th:text="${itAdmin.name}"></a></td>    
 	 	  
-	 				<td th:text="${itClient.name}"></td>    
-	 				<td th:text="${itClient.surname}"></td>    
-	 				<td th:text="${itClient.email}"></td>    
-	 				<td th:text="${itClient.phoneNumber}"></td>    
-	 				<td th:text="${itClient.address}"></td>    
-	 				<td th:text="${itClient.cardNumber}"></td>    
-	 				<td th:text="${itClient.nativeLanguage}"></td>    
-					 <td><span th:each="language : ${itClient.additionalLanguages}" 
-					  th:text="${language.name()} + ' '"></span> </td>
-	 				<td th:text="${itClient.role}"></td>    
-	 				<td th:text="${itClient.height}"></td>    
-	 				<td th:text="${itClient.weight}"></td>    
-	 				<td th:text="${itClient.illnessOrConditions}"></td>
-	 				<td><span th:each="goal : ${itClient.goals}" 
-					  th:text="${goal.name()} + ' '"></span> </td>
-					  <td><span th:each="prop : ${itClient.props}" 
-					  th:text="${prop.name()} + ' '"></span> </td>    
-	 				<td th:text="${itClient.waistCircumference}"></td>    
-	 				<td th:text="${itClient.stomachCircumference}"></td>    
+	 				<td th:text="${itAdmin.name}"></td>    
+	 				<td th:text="${itAdmin.surname}"></td>    
+	 				<td th:text="${itAdmin.email}"></td>    
+	 				<td th:text="${itAdmin.phoneNumber}"></td>    
+	 				<td th:text="${itAdmin.address}"></td>    
+	 				<td th:text="${itAdmin.cardNumber}"></td>    
+	 				<td th:text="${itAdmin.nativeLanguage}"></td>    
+  <td>  <span th:each="language : ${itAdmin.additionalLanguages}" th:text="${language.name()} + ' '"></span> </td>
+	 				<td th:text="${itAdmin.role}"></td>    
 	 				
-	 				<td>    
-	 					<form  
-	 					method="post" action="clients/delete" >     
-	 						<input type="hidden"  name="id"  th:value="${itClient.id}">     
-	 						<input type="submit"  value="Delete" >    
-	 					</form>    
-	 				</td>   
+	 				
 	 			</tr>
 	 		</table>
 	 		</div>
 	 		</section>
-	 		 <div class = 'btn'>  
-	 		<a href="clients/add" class = "btn">Add client</a>     
-	 	</div>
+	 		
 	 	   
 	 </body>   
  </html>	

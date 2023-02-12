@@ -14,6 +14,7 @@
 	 	<ul>     
 	 		<li ><a href="trainers" >Trainers</a></li>
 	 		<li ><a href="clients" >Clients</a></li>
+	 		<li ><a href="admins" >Admin</a></li>
 	 		<li ><a href="appointments">Appointments</a></li>   
 	 		<li><a href="">Logout</a></li> 
 	 	</ul>     
@@ -88,7 +89,7 @@
 		</table>
 	</form>
 	<form method="post" action="trainers/delete">
-		<input type="hidden" name="id" th:value="${trainerid}"/>
+		<input type="hidden" name="id" th:value="${trainer.id}"/>
 		<table class="forma">
 			<tr><th></th><td><input type="submit" value="Delete"/></td></tr>
 		</table>
