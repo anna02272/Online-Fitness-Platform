@@ -12,6 +12,12 @@ public class Admin extends User {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Admin(int id, String name, String surname, String email, String password, String phoneNumber, String address,
+			String cardNumber, ELanguage nativeLanguage,  ERole role) {
+		super(id, name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, role);
+		// TODO Auto-generated constructor stub
+	}
+
 	public boolean CheckData() {
 		//TODO provera podataka 
 		return true;

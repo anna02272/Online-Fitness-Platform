@@ -100,7 +100,7 @@ public class ClientController implements ServletContextAware {
 				@RequestParam(required = true) String email,@RequestParam(required = true) String password,
 				@RequestParam(required = true) String phoneNumber, @RequestParam(required = true) String address,
 				@RequestParam(required = true) String cardNumber, @RequestParam(required = true) ELanguage nativeLanguage,
-				 @RequestParam(required = false) List<ELanguage> clientLanguages, @RequestParam (required = true) ERole role,
+				 @RequestParam(required = false) List<ELanguage> clientLanguages,
 				 @RequestParam(required = true) int height, @RequestParam(required = true) int weight,
 				 @RequestParam(required = true) String illnessOrConditions,
 				 @RequestParam(required = false) List<EGoals> clientGoals,
@@ -130,9 +130,7 @@ public class ClientController implements ServletContextAware {
 					client.setNativeLanguage(nativeLanguage);
 				if (clientLanguages != null && !clientLanguages.isEmpty()) {
 					  client.setAdditionalLanguages(clientLanguages);
-					}
-				if(role != null )
-					client.setRole(role);
+				}
 				if (height >= 0) {
 					  client.setHeight(height);
 				}
