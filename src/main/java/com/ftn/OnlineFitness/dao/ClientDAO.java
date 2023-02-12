@@ -31,6 +31,8 @@ public interface ClientDAO {
 	public Client findByPhoneNumber(String phoneNumber);
 	
 	public Client findByCardNumber(String cardNumber);
+	
+	public Client getByEmailAndPassword(String email,String password);
 
 
 }

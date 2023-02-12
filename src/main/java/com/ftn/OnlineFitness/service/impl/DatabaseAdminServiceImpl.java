@@ -56,6 +56,12 @@ public class DatabaseAdminServiceImpl implements AdminService{
 	public Admin getByCardNumber(String cardNumber) {
 		return adminDAO.getByCardNumber(cardNumber);
 	}
+	
+	//IZMENJENO
+	@Override
+	public Admin getByEmailAndPassword(String email,String password) {
+	return adminDAO.getByEmailAndPassword(email, password);
 
+}
 }
 
