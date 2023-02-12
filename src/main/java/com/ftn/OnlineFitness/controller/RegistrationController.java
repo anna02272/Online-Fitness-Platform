@@ -23,6 +23,7 @@ import com.ftn.OnlineFitness.model.Client;
 import com.ftn.OnlineFitness.model.ELanguage;
 import com.ftn.OnlineFitness.model.ERole;
 import com.ftn.OnlineFitness.model.Trainer;
+import com.ftn.OnlineFitness.service.AdminService;
 import com.ftn.OnlineFitness.service.ClientService;
 import com.ftn.OnlineFitness.service.TrainerService;
 
@@ -39,6 +40,9 @@ public class RegistrationController implements ServletContextAware {
 	
 	@Autowired
 	private ClientService clientService;
+	
+	@Autowired
+	private AdminService adminService;
 	
 	@PostConstruct
 	public void init() {
@@ -78,6 +82,24 @@ public class RegistrationController implements ServletContextAware {
 			md.addObject("errorClientExistsEmail", true);
 			error = true;
 		}
+		
+		if (adminService.getByEmail(email) != null) {
+			md.addObject("errorAdminExistsEmail", true);
+			error = true;
+		}
+		
+		System.out.println(cardNumber);
+		if (adminService.getByCardNumber(cardNumber) != null) {
+			System.out.println("ovo je admin sa tom karticom ");
+			md.addObject("errorAdminExistsCardNumber", true);
+			error = true;
+		}
+		System.out.println(adminService.getByPhoneNumber(phoneNumber));
+		if (adminService.getByPhoneNumber(phoneNumber) != null) {
+			md.addObject("errorAdminExistsPhoneNumber", true);
+			error = true;
+		}
+		
 		
 		if (clientService.findByCardNumber(cardNumber) != null) {
 			md.addObject("errorClientExistsCardNumber", true);

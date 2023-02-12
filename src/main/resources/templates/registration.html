@@ -61,13 +61,11 @@
 			That is not correct format of email (for example test@gmail.com)
          </div>
          
-           <div th:if="${errorClientExistsEmail}" class="alert alert-danger">
-           Client/Trainer with this email already exists.
-         </div>
+           		<div th:if="${errorTrainerExistsEmail} or ${errorClientExistsEmail} or ${errorAdminExistsEmail}" class="alert alert-danger">
+  Client/Trainer/Admin with this email already exists.
+</div>
+		
          
-          <div th:if="${errorTrainerExistsEmail}" class="alert alert-danger">
-           Client/Trainer with this email already exists.
-         </div>
 			
 			<input type="text" value="" name="email" required /></td></tr>
 			<tr><th>Password:</th><td>
@@ -81,8 +79,8 @@
 			<div th:if="${errorPhone}" class="alert alert-danger">
                    Phone number is in incorrect format (example 0603300123). </div>
 			
-		<div th:if="${errorTrainerExistsPhoneNumber} or ${errorClientExistsPhoneNumber}" class="alert alert-danger">
-  Client/Trainer with this phone number already exists.
+		<div th:if="${errorTrainerExistsPhoneNumber} or ${errorClientExistsPhoneNumber} or ${errorAdminExistsPhoneNumber}" class="alert alert-danger">
+  Client/Trainer/Admin with this phone number already exists.
 </div>
 			
 			<input type="text" value="" name="phoneNumber" required /></td></tr>
@@ -90,8 +88,8 @@
 			<tr><th>Card number:</th><td>
 			
           	
-		<div th:if="${errorTrainerExistsCardNumber} or ${errorClientExistsCardNumber}" class="alert alert-danger">
-  Client/Trainer with this card number already exists.
+		<div th:if="${errorTrainerExistsCardNumber} or ${errorClientExistsCardNumber} or ${errorAdminExistsCardNumber}" class="alert alert-danger">
+  Client/Trainer/Admin with this card number already exists.
 </div>
 		
 			<input type="text" value="" name="cardNumber" required/></td></tr>
