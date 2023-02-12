@@ -19,4 +19,10 @@ public interface TrainerDAO {
 	public int delete(int id);
 	
 	public List<ELanguage> getTrainerLanguages(int id);
+	
+	public Trainer findByEmail(String email);
+	
+	public Trainer findByPhoneNumber(String phoneNumber);
+	
+	public Trainer findByCardNumber(String cardNumber);
 }

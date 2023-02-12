@@ -61,13 +61,13 @@
 				<tr>
  				<th>Role:</th>
 				<td>
-			    <select name="role">
-			      <option th:each="erole: ${T(com.ftn.OnlineFitness.model.ERole).values()}" 
+			   <select name="role">
+       <option th:each="erole : ${filteredRoles}"
 			                th:value="${erole}" 
 			              th:text="${erole}"
 			               th:selected="${erole == trainer.role}">
 			      </option>
-			    </select>
+			    </select> 
 			  </td>
 			  <tr>
 				<tr><th>Certificate:</th><td><input type="text" th:value="${trainer.certificate}" name="certificate" /></td></tr>

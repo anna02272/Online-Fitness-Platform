@@ -60,5 +60,21 @@ public class DatabaseClientServiceImpl implements ClientService{
 	public List<EProps> getClientProps(int id) {
          return clientDAO.getClientProps(id);		
 	}
+	
+	@Override
+	public Client findByEmail(String email) {
+		return clientDAO.findByEmail(email);
+	}
+	
+	@Override
+	public Client findByPhoneNumber(String phoneNumber) {
+		return clientDAO.findByPhoneNumber(phoneNumber);
+	}
+	
+	@Override
+	public Client findByCardNumber(String cardNumber) {
+		return clientDAO.findByCardNumber(cardNumber);
+	}
+
 }
 

@@ -194,4 +194,51 @@ public class TrainerDAOImpl implements TrainerDAO {
 		return languages;
 	}
 	
+	@Override
+	public Trainer findByEmail(String email) {
+		 String sql = "SELECT * FROM Trainer t " +
+                 "WHERE t.email = ?" + 
+                 "ORDER BY t.id";
+	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+	   jdbcTemplate.query(sql, rowCallbackHandler, email);
+	   if (rowCallbackHandler.getTrainers().isEmpty()) {
+		   return null;
+	   }
+	   return rowCallbackHandler.getTrainers().get(0);
+   
+   
+	}
+	
+	@Override
+	public Trainer findByPhoneNumber(String phoneNumber) {
+		 String sql = "SELECT * FROM Trainer t " +
+                 "WHERE t.phoneNumber = ?" + 
+                 "ORDER BY t.id";
+	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+	   jdbcTemplate.query(sql, rowCallbackHandler, phoneNumber);
+	   if (rowCallbackHandler.getTrainers().isEmpty()) {
+		   return null;
+	   }
+	   return rowCallbackHandler.getTrainers().get(0);
+   
+   
+	}
+	
+	@Override
+	public Trainer findByCardNumber(String cardNumber) {
+		 String sql = "SELECT * FROM Trainer t " +
+                 "WHERE t.phoneNumber = ?" + 
+                 "ORDER BY t.id";
+	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+	   jdbcTemplate.query(sql, rowCallbackHandler, cardNumber);
+	   if (rowCallbackHandler.getTrainers().isEmpty()) {
+		   return null;
+	   }
+	   return rowCallbackHandler.getTrainers().get(0);
+   
+   
+	}
+	
+	
+	
 }
