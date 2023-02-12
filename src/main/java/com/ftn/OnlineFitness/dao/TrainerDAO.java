@@ -25,4 +25,7 @@ public interface TrainerDAO {
 	public Trainer findByPhoneNumber(String phoneNumber);
 	
 	public Trainer findByCardNumber(String cardNumber);
+
+	public Trainer findByEmailAndPassword(String email,String password);
+
 }

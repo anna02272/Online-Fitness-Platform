@@ -40,15 +40,25 @@
 		</tr>
 	</table>
 	
-	<form method="post" action="users/login">
+	<form method="post" action="login">
 		
 		<table>
 			<caption>Login:</caption>
-			<tr><th>Email:</th><td><input type="text" value="" name="email" required/></td></tr>
-			<tr><th>Password:</th><td><input type="password" value="" name="password" required/></td></tr>
+			<tr>
+				<th>Email:</th>
+				<td>
+					<input type="text" placeholder="Enter Email" name="email" required/>
+				</td>
+			</tr>
+			<tr><th>Password:</th><td><input type="password" placeholder="Enter Password" name="password" required/></td></tr>
 			<tr><th></th><td><input type="submit" value="Login" /></td>
 		</table>
 	</form>
-	
+<div th:if="${param.error}" class="alert alert-danger">
+	Invalid email and password.
+</div>
+<div th:if="${param.logout}" class="alert alert-success">
+	You have been logged out.
+</div>
 </body>
 </html>

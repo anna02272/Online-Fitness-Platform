@@ -1,5 +1,3 @@
-DROP SCHEMA specifikacijesoftverskihsistemaprojekat;
-
 CREATE SCHEMA SpecifikacijeSoftverskihSistemaProjekat;
 use SpecifikacijeSoftverskihSistemaProjekat;
 
@@ -100,5 +98,6 @@ FOREIGN KEY (clientId) REFERENCES ClientTable(id) ON DELETE CASCADE
 );
 
 
-INSERT INTO Trainer VALUES(1, 'Milan','Milanic','milanmilanic@gmail.com', 'password', '060 3311 964','address','160-216125-49','SERBIAN','TRAINER','DIPLOMIRANI PROFESOR FIZICKOG VASPITANJA','PROFESOR SPORTA I FIZICKOG VASPITANJA', 'Title',FALSE,40000)
+INSERT INTO Trainer VALUES(1, 'Milan','Milanic','milanmilanic@gmail.com', 'password', '060 3311 964','address','160-216125-49','SERBIAN','TRAINER','DIPLOMIRANI PROFESOR FIZICKOG VASPITANJA','PROFESOR SPORTA I FIZICKOG VASPITANJA', 'Title',FALSE,40000);
 
+insert into Admin values(1,'Test','Testovic','testovic@gmail.com','test','212321312','adresa','160-216125-09','SERBIAN','ADMIN');

@@ -132,5 +132,18 @@ public class AdminDAOImpl implements AdminDAO {
 		List<ELanguage> languages = languageStrings.stream().map(ELanguage::valueOf).collect(Collectors.toList());
 		return languages;
 	}
+	@Override
+	public Admin findOneByEmailAndPassword(String email,String password){
+		try {
+			String sql = "select id,name,surname,email,password,phoneNumber,address,cardNumber,nativeLanguage,role" +
+					"from Admin where email = ? and password = ?";
+			RowCallBackHandler rowCallBackHandler= new RowCallBackHandler();
+			jdbcTemplate.query(sql,rowCallBackHandler,email,password);
+			Admin admin = rowCallBackHandler.getAdmins().get(0);
+			return admin;
+		}catch (Exception x){
+			return null;
+		}
+	}
 	
 }

@@ -16,4 +16,6 @@ public interface AdminDAO {
 		
 	public List<ELanguage> getAdminLanguages(int id);
 
+	public Admin findOneByEmailAndPassword(String email,String password);
+
 }
