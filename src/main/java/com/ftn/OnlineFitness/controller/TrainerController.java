@@ -153,7 +153,6 @@ public class TrainerController implements ServletContextAware {
 		public ModelAndView details(@RequestParam int id) {	
 			Trainer trainer = trainerService.findOne(id);
 			List<ELanguage> trainerLanguages = trainerService.getTrainerLanguages(id);
-			System.out.println("trainerLanguages: " + trainerLanguages);
 
 			
 		
@@ -165,3 +164,4 @@ public class TrainerController implements ServletContextAware {
 		}
 
 	}
+

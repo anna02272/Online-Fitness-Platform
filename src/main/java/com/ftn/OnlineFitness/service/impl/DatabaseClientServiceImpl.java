@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.ftn.OnlineFitness.dao.ClientDAO;
 import com.ftn.OnlineFitness.model.Client;
+import com.ftn.OnlineFitness.model.EGoals;
+import com.ftn.OnlineFitness.model.ELanguage;
+import com.ftn.OnlineFitness.model.EProps;
 import com.ftn.OnlineFitness.service.ClientService;
 
 @Service
@@ -45,6 +48,17 @@ public class DatabaseClientServiceImpl implements ClientService{
 		}
 		return client;
 	}
-
+	@Override
+	public List<ELanguage> getClientLanguages(int id) {
+         return clientDAO.getClientLanguages(id);		
+	}
+	@Override
+	public List<EGoals> getClientGoals(int id) {
+         return clientDAO.getClientGoals(id);		
+	}
+	@Override
+	public List<EProps> getClientProps(int id) {
+         return clientDAO.getClientProps(id);		
+	}
 }
 
