@@ -1,0 +1,95 @@
+<!DOCTYPE html> 
+	<html xmlns:th="http://www.thymeleaf.org">     
+	<head>     
+		<meta charset="UTF-8">     
+		<base th:href="@{/}">
+		<title>Appointments</title>     
+		<link rel="stylesheet"  type="text/css"  href="css/StylesTable.css"/>     
+	 	<link rel="stylesheet"  type="text/css" href="css/StylesMenu.css"/>   
+	 </head>     
+	 <body> 
+	 <h2>OnlineFitness</h2>
+	  <nav>
+	  <div class="navigation">  
+	 	<ul>     
+	 			<li ><a href="trainers" >Trainers</a></li>
+	 		<li ><a href="clients" >Clients</a></li>
+	 		<li ><a href="admins" >Admin</a></li>
+	 		<li ><a href="appointments">Appointments</a></li>
+	 	</ul>     
+	 	</div >
+	</nav>
+	
+	 <section class="registrationForm">
+	<div class = "registrationForm">
+	<table th:unless="${session.user == null}"> 
+	<tr><th>You're logged in as:</th><td><a th:href="|users/details?id=${session.user.id}|" th:text="${session.user.email}"></a>.</td></tr>
+		<tr>
+			<td colspan="2">
+				<ul>
+					<li><a href="users/logout">Logout</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	<table th:if="${session.user == null}">
+		<tr><th>You're not logged in: </th></tr>
+		<tr>
+			<td>
+				<ul>
+					<li><a href="registration.html">Registration</a></li>
+					<li><a href="login.html">Login</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	</div>
+	</section>
+	
+	  <section class="content">
+	<div class = "content" >
+	 		<table>     
+	 			<caption>Appointment</caption>     
+	 			<tr>      
+	 			   <th></th>     
+	 				<th></th>  
+	 				<th>Trainer</th>          
+	 				<th>Client</th>   
+	 				<th>Is Free</th>   
+	 				<th>Date and time</th>   
+	 				<th>Price</th>   
+	 				<th>Rating</th>   
+	 				<th>Comment</th>  
+	 				<th></th>   
+	 			
+	 			</tr>
+	 			<tr th:each="itappointment, status: ${appointments}">
+	 			
+	 			<td class="broj" th:text="${(status.index + 1)+'.'}"></td>     
+	 				<td><a  
+	 				th:href="|appointments/details?id=${itappointment.id}|" th:text="${itappointment.rating}"></a></td>    
+	 				<td th:text="|${itappointment.trainer.name}  ${itappointment.trainer.surname}|"></td>    
+	 				<td th:text="|${itappointment.client.name}  ${itappointment.client.surname}|"></td>    
+	 			 	<td th:text="${itappointment.free}"></td>   
+	 				<td th:text="${itappointment.dateAndTime}"></td>    
+	 				<td th:text="${itappointment.price}"></td>    
+	 				<td th:text="${itappointment.rating}"></td>    
+	 				<td th:text="${itappointment.comment}"></td>    
+	 
+	 				<td>    
+	 					<form  
+	 					method="post" action="appointments/delete" >     
+	 						<input type="hidden"  name="id"  th:value="${itappointment.id}">     
+	 						<input type="submit"  value="Delete" >    
+	 					</form>    
+	 				</td>   
+	 			</tr>
+	 		</table>
+	 		</div>
+	 		</section>
+	 		 <div class = 'btn'>  
+	 		<a href="appointments/add" class = "btn">Add appointment</a>     
+	 	</div>
+	 	   
+	 </body>   
+ </html>	
