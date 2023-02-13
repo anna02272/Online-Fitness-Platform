@@ -88,10 +88,8 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Override
 	public List<Admin> findAll() {
-		String sql =
-				"SELECT id,name,surname,email,password,phoneNumber," +
-						"address,cardNumber,nativeLanguage FROM Admin" +
-						"ORDER BY id";
+		String sql = "SELECT id, name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, role FROM Admin ORDER BY id";
+				
 
 		RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
 		jdbcTemplate.query(sql, rowCallbackHandler);

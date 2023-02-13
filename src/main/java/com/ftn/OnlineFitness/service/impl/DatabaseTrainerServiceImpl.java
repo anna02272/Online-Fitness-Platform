@@ -72,6 +72,10 @@ public class DatabaseTrainerServiceImpl implements TrainerService{
 	public Trainer getByEmailAndPassword(String email,String password) {
 		return trainerDAO.getByEmailAndPassword(email, password);
 	}
+	@Override
+	public List<Trainer> findInactiveTrainers() {
+		return trainerDAO.findInactiveTrainers();
+	}
 
 
 
