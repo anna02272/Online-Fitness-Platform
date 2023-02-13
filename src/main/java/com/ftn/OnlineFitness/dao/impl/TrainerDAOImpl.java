@@ -166,12 +166,16 @@ public class TrainerDAOImpl implements TrainerDAO {
 				trainer.getNativeLanguage().name(),trainer.getCertificate(), trainer.getDiploma(), trainer.getTitle(), 
 				trainer.isActive(), trainer.getSalary(), trainer.getId()) == 1;
 		
+		
+		
 		String deleteSql = "DELETE FROM trainerSpeaks WHERE trainerId = ?";
 		jdbcTemplate.update(deleteSql, trainer.getId());
 		
+		if (trainer.getAdditionalLanguages()!= null) {
 		String insertSql = "INSERT INTO trainerSpeaks (trainerId, speaksLangague) values (?,?)";
 		for (ELanguage language : trainer.getAdditionalLanguages()) {
 			jdbcTemplate.update(insertSql, trainer.getId(), language.name());
+		}
 		}
 		
 		
@@ -264,7 +268,17 @@ public class TrainerDAOImpl implements TrainerDAO {
    
 	}
 	
-	
+	@Override
+	public List<Trainer> findInactiveTrainers() {
+	   String sql = "SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+	      "nativeLanguage,role,certificate,diploma,title,isActive,salary FROM Trainer " +
+	      "WHERE isActive = false " +
+	      "ORDER BY id";
+	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+	   jdbcTemplate.query(sql, rowCallbackHandler);
+	   return rowCallbackHandler.getTrainers();
+	}
+
 	
 	
 	

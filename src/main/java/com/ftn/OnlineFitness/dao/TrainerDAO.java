@@ -26,6 +26,7 @@ public interface TrainerDAO {
 	
 	public Trainer findByCardNumber(String cardNumber);
 
+	public List<Trainer> findInactiveTrainers();
 	
 	public Trainer getByEmailAndPassword(String email,String password);
 

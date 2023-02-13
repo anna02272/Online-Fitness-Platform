@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ftn.OnlineFitness.model.ELanguage;
 import com.ftn.OnlineFitness.model.ERole;
 import com.ftn.OnlineFitness.model.Trainer;
+import com.ftn.OnlineFitness.service.AdminService;
 import com.ftn.OnlineFitness.service.TrainerService;
 
 @Controller
@@ -36,6 +37,9 @@ public class TrainerController implements ServletContextAware {
 		
 		@Autowired
 		private TrainerService trainerService;
+		
+		@Autowired
+		private AdminService adminService;
 		
 		
 		@PostConstruct
@@ -51,7 +55,7 @@ public class TrainerController implements ServletContextAware {
 		@GetMapping
 		public ModelAndView index() {
 			List<Trainer> trainers = trainerService.findAll();	
-			
+             			
 			for (Trainer trainer : trainers) {
 				trainer.setAdditionalLanguages(trainerService.getTrainerLanguages(trainer.getId()));
 			}
@@ -173,6 +177,22 @@ public class TrainerController implements ServletContextAware {
 			rezultat.addObject("trainerLanguages", trainerLanguages);
 
 			return rezultat; 
+		}
+		
+		
+		@PostMapping(value="/activate")
+		@ResponseBody
+		public ModelAndView activate(@RequestParam int id) {
+			ModelAndView trainers = new ModelAndView("trainers");
+			Trainer trainer = trainerService.findOne(id);
+			trainer.setActive(true);
+			trainerService.update(trainer);
+			
+			List<Trainer> allTrainers = trainerService.findAll();
+			trainers.addObject("trainers", allTrainers);
+			return trainers;
+			
+			
 		}
 
 	}
