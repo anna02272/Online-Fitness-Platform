@@ -46,7 +46,15 @@
 			<caption>Login:</caption>
 			<tr><th>Email:</th><td><input type="text" value="" name="email" required/></td></tr>
 			<tr><th>Password:</th><td><input type="password" value="" name="password" required/></td></tr>
-			<tr><th></th><td><input type="submit" value="Login" /></td>
+			
+			
+			<tr><th></th><td><input type="submit" value="Login" />
+			
+			<div th:if="${errorLogin}" class="alert alert-danger">
+			Wrong credentials.
+         </div>
+			
+			</td>
 		</table>
 	</form>
 	
