@@ -67,9 +67,13 @@ public class DatabaseTrainerServiceImpl implements TrainerService{
 	public Trainer findByCardNumber(String cardNumber) {
 		return trainerDAO.findByCardNumber(cardNumber);
 	}
-
+	
 	@Override
-	public Trainer findByEmailAndPassword(String email,String password){return trainerDAO.findByEmailAndPassword(email,password);}
+	public Trainer getByEmailAndPassword(String email,String password) {
+		return trainerDAO.getByEmailAndPassword(email, password);
+	}
+
+
 
 }
 

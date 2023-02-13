@@ -41,8 +41,27 @@ public class DatabaseAdminServiceImpl implements AdminService{
 	public List<ELanguage> getAdminLanguages(int id) {
          return adminDAO.getAdminLanguages(id);		
 	}
-
+	
 	@Override
-	public Admin findOneByEmailAndPassword(String email,String password){return adminDAO.findOneByEmailAndPassword(email,password);}
+	public Admin getByEmail(String email) {
+		return adminDAO.getByEmail(email);
+	}
+	
+	@Override
+	public Admin getByPhoneNumber(String phoneNumber) {
+		return adminDAO.getByPhoneNumber(phoneNumber);
+	}
+	
+	@Override
+	public Admin getByCardNumber(String cardNumber) {
+		return adminDAO.getByCardNumber(cardNumber);
+	}
+	
+	//IZMENJENO
+	@Override
+	public Admin getByEmailAndPassword(String email,String password) {
+		return adminDAO.getByEmailAndPassword(email, password);
+
+	}
 }
 

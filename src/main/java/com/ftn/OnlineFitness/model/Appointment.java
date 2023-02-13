@@ -26,6 +26,18 @@ public class Appointment {
 		this.comment = comment;
 	}
 	
+	public Appointment(Trainer trainer, Client client, boolean isFree, LocalDateTime dateAndTime, float price,
+			ERating rating, String comment) {
+		super();
+		this.trainer = trainer;
+		this.client = client;
+		this.isFree = isFree;
+		this.dateAndTime = dateAndTime;
+		this.price = price;
+		this.rating = rating;
+		this.comment = comment;
+	}
+
 	public int getId() {
 		return id;
 	}

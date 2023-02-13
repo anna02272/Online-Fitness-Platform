@@ -22,6 +22,7 @@ public interface ClientService {
 	Client findByEmail(String email);
 	Client findByPhoneNumber(String phoneNumber);
 	Client findByCardNumber(String cardNumber);
+	Client getByEmailAndPassword(String email,String password);
 
 
 

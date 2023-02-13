@@ -17,7 +17,9 @@ public interface TrainerService {
 	Trainer findByEmail(String email);
 	Trainer findByCardNumber(String cardNumber);
 	Trainer findByPhoneNumber(String phoneNumber);
-	Trainer findByEmailAndPassword(String email,String password);
+
+	Trainer getByEmailAndPassword(String email,String password);
+
 
 
 

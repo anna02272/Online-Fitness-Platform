@@ -117,7 +117,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 			
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-				String sql = "INSERT INTO Appointment (idTrainer, idClient, isFree, dateAndTime, price, rating, comment) VALUES (?, ?, ?, ?, ?)";	 PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				String sql = "INSERT INTO Appointment (idTrainer, idClient, isFree, dateAndTime, price, rating, comment) VALUES (?, ?, ?, ?, ?, ?, ?)";	 PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int index = 1;
 				preparedStatement.setInt(index++, appointment.getTrainer().getId());
 				preparedStatement.setInt(index++, appointment.getClient().getId());
@@ -143,7 +143,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 		String sql = "UPDATE Appointment SET idTrainer = ?, idClient = ?, isFree = ?, dateAndTime = ?, price = ?,"
 				+ " rating = ?, comment = ? WHERE id = ?";
 		boolean uspeh = jdbcTemplate.update(sql, appointment.getTrainer().getId(), appointment.getClient().getId(),  
-				appointment.isFree(), appointment.getDateAndTime(), appointment.getPrice(), appointment.getRating(), 
+				appointment.isFree(), appointment.getDateAndTime(), appointment.getPrice(), appointment.getRating().name(), 
 				appointment.getComment(), appointment.getId()) == 1;
 		
 		return uspeh?1:0;

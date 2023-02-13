@@ -3,7 +3,7 @@
 	<head>     
 		<meta charset="UTF-8">     
 		<base th:href="@{/}">
-		<title>Trainers</title>     
+		<title>Appointments</title>     
 		<link rel="stylesheet"  type="text/css"  href="css/StylesTable.css"/>     
 	 	<link rel="stylesheet"  type="text/css" href="css/StylesMenu.css"/>   
 	 </head>     
@@ -49,52 +49,37 @@
 	  <section class="content">
 	<div class = "content" >
 	 		<table>     
-	 			<caption>Trainers</caption>     
+	 			<caption>Appointment</caption>     
 	 			<tr>      
 	 			   <th></th>     
 	 				<th></th>  
-	 				<th>Name</th>          
-	 				<th>Surname</th>   
-	 				<th>Email</th>   
-	 				<th>Phone Number</th>   
-	 				<th>Address</th>   
-	 				<th>Card number</th>   
-	 				<th>Native language</th>  
-	 			  	<th>Additional languages</th> 
-	 				<th>Role</th> 
-	 				<th>Certificate</th> 
-	 				<th>Diploma</th> 
-	 				<th>Title</th> 
-	 				<th>isActive</th> 
-	 				<th>Salary</th> 
+	 				<th>Trainer</th>          
+	 				<th>Client</th>   
+	 				<th>Is Free</th>   
+	 				<th>Date and time</th>   
+	 				<th>Price</th>   
+	 				<th>Rating</th>   
+	 				<th>Comment</th>  
 	 				<th></th>   
 	 			
 	 			</tr>
-	 			<tr th:each="itTrainer, status: ${trainers}">
+	 			<tr th:each="itappointment, status: ${appointments}">
 	 			
 	 			<td class="broj" th:text="${(status.index + 1)+'.'}"></td>     
 	 				<td><a  
-	 				th:href="|trainers/details?id=${itTrainer.id}|" th:text="${itTrainer.name}"></a></td>    
-	 	  
-	 				<td th:text="${itTrainer.name}"></td>    
-	 				<td th:text="${itTrainer.surname}"></td>    
-	 				<td th:text="${itTrainer.email}"></td>    
-	 				<td th:text="${itTrainer.phoneNumber}"></td>    
-	 				<td th:text="${itTrainer.address}"></td>    
-	 				<td th:text="${itTrainer.cardNumber}"></td>    
-	 				<td th:text="${itTrainer.nativeLanguage}"></td>    
-  <td>  <span th:each="language : ${itTrainer.additionalLanguages}" th:text="${language.name()} + ' '"></span> </td>
-	 				<td th:text="${itTrainer.role}"></td>    
-	 				<td th:text="${itTrainer.certificate}"></td>    
-	 				<td th:text="${itTrainer.diploma}"></td>    
-	 				<td th:text="${itTrainer.title}"></td>    
-	 				<td th:text="${itTrainer.isActive}"></td>    
-	 				<td th:text="${itTrainer.salary}"></td>    
-	 				
+	 				th:href="|appointments/details?id=${itappointment.id}|" th:text="${itappointment.rating}"></a></td>    
+	 				<td th:text="|${itappointment.trainer.name}  ${itappointment.trainer.surname}|"></td>    
+	 				<td th:text="|${itappointment.client.name}  ${itappointment.client.surname}|"></td>    
+	 			 	<td th:text="${itappointment.free}"></td>   
+	 				<td th:text="${itappointment.dateAndTime}"></td>    
+	 				<td th:text="${itappointment.price}"></td>    
+	 				<td th:text="${itappointment.rating}"></td>    
+	 				<td th:text="${itappointment.comment}"></td>    
+	 
 	 				<td>    
 	 					<form  
-	 					method="post" action="trainers/delete" >     
-	 						<input type="hidden"  name="id"  th:value="${itTrainer.id}">     
+	 					method="post" action="appointments/delete" >     
+	 						<input type="hidden"  name="id"  th:value="${itappointment.id}">     
 	 						<input type="submit"  value="Delete" >    
 	 					</form>    
 	 				</td>   
@@ -103,7 +88,7 @@
 	 		</div>
 	 		</section>
 	 		 <div class = 'btn'>  
-	 		<a href="trainers/add" class = "btn">Add trainer</a>     
+	 		<a href="appointments/add" class = "btn">Add appointment</a>     
 	 	</div>
 	 	   
 	 </body>   

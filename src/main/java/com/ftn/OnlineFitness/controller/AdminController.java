@@ -23,7 +23,7 @@ import com.ftn.OnlineFitness.service.AdminService;
 
 @Controller
 @RequestMapping(value= "/admins")
-public class AdminController implements ServletContextAware {
+public class  AdminController implements ServletContextAware {
 
 		
 		@Autowired

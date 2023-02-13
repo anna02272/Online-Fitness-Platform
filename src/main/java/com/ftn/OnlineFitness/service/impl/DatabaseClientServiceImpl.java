@@ -75,6 +75,10 @@ public class DatabaseClientServiceImpl implements ClientService{
 	public Client findByCardNumber(String cardNumber) {
 		return clientDAO.findByCardNumber(cardNumber);
 	}
-
+    
+	@Override
+	public Client getByEmailAndPassword(String email,String password) {
+		return clientDAO.getByEmailAndPassword(email, password);
+	}
 }
 

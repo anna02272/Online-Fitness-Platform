@@ -10,7 +10,16 @@ public interface AdminService {
 	List<Admin> findAll(); 
 	Admin update(Admin admin); 
 	List<ELanguage> getAdminLanguages(int id);
-	Admin findOneByEmailAndPassword(String email,String password);
+
+
+
+	Admin getByEmail(String email);
+	Admin getByPhoneNumber(String phoneNumber);
+	Admin getByCardNumber(String cardNumber);
+	
+	//IZMENJENO
+	Admin getByEmailAndPassword(String email,String password);
+
 
 
 }

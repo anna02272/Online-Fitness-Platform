@@ -238,22 +238,27 @@ public class TrainerDAOImpl implements TrainerDAO {
    
    
 	}
+
+
+	
 	@Override
-	public Trainer findByEmailAndPassword(String email,String password){
-		try {
-			String sql = "select id,name,surname,email,password,phoneNumber,address," +
-					"cardNumber,nativeLanguage,role,certificate,diploma,title,isActive,salary" +
-					"from Trainer where email = ? and password = ?";
-			RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
-			jdbcTemplate.query(sql,rowCallbackHandler,email,password);
-			Trainer trainer = rowCallbackHandler.getTrainers().get(0);
-			return trainer;
-		}catch (Exception x){
+	public Trainer getByEmailAndPassword(String email, String lozinka) {
+		 String sql = "SELECT * FROM Trainer t " +
+                 "WHERE t.email = ?  AND t.password = ?" + 
+                 "ORDER BY t.id";
+   
+	
 
-			return null;
-		}
-
+   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
+   jdbcTemplate.query(sql, rowCallbackHandler, email, lozinka);
+   if (rowCallbackHandler.getTrainers().isEmpty()) {
+	   return null;
+   }
+   return rowCallbackHandler.getTrainers().get(0);
+   
 	}
+	
+	
 	
 	
 	
