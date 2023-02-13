@@ -65,6 +65,17 @@ public class LoginController implements ServletContextAware {
 @PostMapping
 public Object login(@RequestParam("email") String email, @RequestParam("password") String password, HttpServletRequest request) {
 	ModelAndView result = new ModelAndView("login");
+	boolean error = false;
+
+	
+	if (adminService.getByEmailAndPassword(email, password) == null ||  trainerService.getByEmailAndPassword(email, password) == null || clientService.getByEmailAndPassword(email, password) == null)  {
+		result.addObject("errorLogin", true);
+	}
+	
+	if (error) {
+         return result;
+	}
+	
 	Admin admin = adminService.getByEmailAndPassword(email, password);
 	if (admin != null) {
 		request.getSession().setAttribute("user", admin);
