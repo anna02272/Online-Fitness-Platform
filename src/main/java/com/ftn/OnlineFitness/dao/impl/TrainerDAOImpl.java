@@ -21,7 +21,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ftn.OnlineFitness.dao.TrainerDAO;
-import com.ftn.OnlineFitness.model.Client;
 import com.ftn.OnlineFitness.model.ELanguage;
 import com.ftn.OnlineFitness.model.ERole;
 import com.ftn.OnlineFitness.model.Trainer;
