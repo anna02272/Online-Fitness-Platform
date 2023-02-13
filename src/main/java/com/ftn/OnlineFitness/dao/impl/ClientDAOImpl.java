@@ -86,7 +86,9 @@ public class ClientDAOImpl implements ClientDAO {
 	@Override
 	public Client findOne(int id) {
 		String sql = 
-				"SELECT * FROM ClientTable  " + 
+				"SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+						"nativeLanguage,role,height,weight,illnessOrCondition," +
+						"waistCircumference,stomachCircumference FROM ClientTable  " +
 				"WHERE id = ? " + 
 				"ORDER BY id";
 
@@ -98,8 +100,10 @@ public class ClientDAOImpl implements ClientDAO {
 
 	@Override
 	public List<Client> findAll() {
-		String sql = 
-				"SELECT * FROM ClientTable " + 
+		String sql =
+				"SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+						"nativeLanguage,role,height,weight,illnessOrCondition," +
+						"waistCircumference,stomachCircumference FROM ClientTable  " +
 						"ORDER BY id";
 
 		RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
@@ -245,9 +249,11 @@ public class ClientDAOImpl implements ClientDAO {
 	
 	@Override
 	public Client findByEmail(String email) {
-		 String sql = "SELECT * FROM ClientTable c " +
-                 "WHERE c.email = ?" + 
-                 "ORDER BY c.id";
+		 String sql = "SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+				 "nativeLanguage,role,height,weight,illnessOrCondition," +
+				 "waistCircumference,stomachCircumference FROM ClientTable  " +
+                 "WHERE email = ?" +
+                 "ORDER BY id";
 	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
 	   jdbcTemplate.query(sql, rowCallbackHandler, email);
 	   if (rowCallbackHandler.getClients().isEmpty()) {
@@ -260,9 +266,11 @@ public class ClientDAOImpl implements ClientDAO {
 	
 	@Override
 	public Client findByPhoneNumber(String phoneNumber) {
-		 String sql = "SELECT * FROM ClientTable c " +
-                 "WHERE c.phoneNumber = ?" + 
-                 "ORDER BY c.id";
+		 String sql = "SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+				 "nativeLanguage,role,height,weight,illnessOrCondition," +
+				 "waistCircumference,stomachCircumference FROM ClientTable  "+
+                 "WHERE phoneNumber = ?" +
+                 "ORDER BY id";
 	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
 	   jdbcTemplate.query(sql, rowCallbackHandler, phoneNumber);
 	   if (rowCallbackHandler.getClients().isEmpty()) {
@@ -276,9 +284,11 @@ public class ClientDAOImpl implements ClientDAO {
 	
 	@Override
 	public Client findByCardNumber(String cardNumber) {
-		 String sql = "SELECT * FROM ClientTable c " +
-                 "WHERE c.cardNumber = ?" + 
-                 "ORDER BY c.id";
+		 String sql = "SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+				 "nativeLanguage,role,height,weight,illnessOrCondition," +
+				 "waistCircumference,stomachCircumference FROM ClientTable  " +
+                 "WHERE cardNumber = ?" +
+                 "ORDER BY id";
 	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
 	   jdbcTemplate.query(sql, rowCallbackHandler, cardNumber);
 	   if (rowCallbackHandler.getClients().isEmpty()) {
@@ -291,9 +301,11 @@ public class ClientDAOImpl implements ClientDAO {
 	
 	@Override
 	public Client getByEmailAndPassword(String email, String lozinka) {
-		 String sql = "SELECT * FROM ClientTable c " +
-                 "WHERE c.email = ?  AND c.password = ?" + 
-                 "ORDER BY c.id";
+		 String sql = "SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+				 "nativeLanguage,role,height,weight,illnessOrCondition," +
+				 "waistCircumference,stomachCircumference FROM ClientTable  " +
+                 "WHERE email = ?  AND password = ?";
+
    
 	
 

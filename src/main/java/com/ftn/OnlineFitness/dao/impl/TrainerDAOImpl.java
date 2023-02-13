@@ -80,9 +80,10 @@ public class TrainerDAOImpl implements TrainerDAO {
 	@Override
 	public Trainer findOne(int id) {
 		String sql = 
-				"SELECT * FROM Trainer  " + 
-				"WHERE id = ? " + 
-				"ORDER BY id";
+				"SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+						"nativeLanguage,role,certificate,diploma,title,isActive,salary FROM Trainer  " +
+				"WHERE id = ? ";
+
 
 		RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
 		jdbcTemplate.query(sql, rowCallbackHandler, id);
@@ -92,8 +93,9 @@ public class TrainerDAOImpl implements TrainerDAO {
 
 	@Override
 	public List<Trainer> findAll() {
-		String sql = 
-				"SELECT * FROM Trainer " + 
+		String sql =
+				"SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+						"nativeLanguage,role,certificate,diploma,title,isActive,salary FROM Trainer  "  +
 						"ORDER BY id";
 
 		RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
@@ -196,9 +198,10 @@ public class TrainerDAOImpl implements TrainerDAO {
 	
 	@Override
 	public Trainer findByEmail(String email) {
-		 String sql = "SELECT * FROM Trainer t " +
-                 "WHERE t.email = ?" + 
-                 "ORDER BY t.id";
+		 String sql = "SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+				 "nativeLanguage,role,certificate,diploma,title,isActive,salary FROM Trainer  "  +
+                 "WHERE email = ?" +
+                 "ORDER BY id";
 	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
 	   jdbcTemplate.query(sql, rowCallbackHandler, email);
 	   if (rowCallbackHandler.getTrainers().isEmpty()) {
@@ -211,9 +214,10 @@ public class TrainerDAOImpl implements TrainerDAO {
 	
 	@Override
 	public Trainer findByPhoneNumber(String phoneNumber) {
-		 String sql = "SELECT * FROM Trainer t " +
-                 "WHERE t.phoneNumber = ?" + 
-                 "ORDER BY t.id";
+		 String sql = "SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+				 "nativeLanguage,role,certificate,diploma,title,isActive,salary FROM Trainer  "  +
+                 "WHERE phoneNumber = ?" +
+                 "ORDER BY id";
 	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
 	   jdbcTemplate.query(sql, rowCallbackHandler, phoneNumber);
 	   if (rowCallbackHandler.getTrainers().isEmpty()) {
@@ -226,9 +230,10 @@ public class TrainerDAOImpl implements TrainerDAO {
 	
 	@Override
 	public Trainer findByCardNumber(String cardNumber) {
-		 String sql = "SELECT * FROM Trainer t " +
-                 "WHERE t.phoneNumber = ?" + 
-                 "ORDER BY t.id";
+		 String sql = "SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+				 "nativeLanguage,role,certificate,diploma,title,isActive,salary FROM Trainer  "  +
+                 "WHERE phoneNumber = ?" +
+                 "ORDER BY id";
 	   RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
 	   jdbcTemplate.query(sql, rowCallbackHandler, cardNumber);
 	   if (rowCallbackHandler.getTrainers().isEmpty()) {
@@ -243,9 +248,10 @@ public class TrainerDAOImpl implements TrainerDAO {
 	
 	@Override
 	public Trainer getByEmailAndPassword(String email, String lozinka) {
-		 String sql = "SELECT * FROM Trainer t " +
-                 "WHERE t.email = ?  AND t.password = ?" + 
-                 "ORDER BY t.id";
+		 String sql = "SELECT id,name,surname,email,password,phoneNumber,address,cardNumber," +
+				 "nativeLanguage,role,certificate,diploma,title,isActive,salary FROM Trainer  "  +
+                 "WHERE email = ?  AND password = ?" +
+                 "ORDER BY id";
    
 	
 

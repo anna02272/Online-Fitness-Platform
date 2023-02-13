@@ -74,8 +74,9 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Override
 	public Admin findOne(int id) {
-		String sql = 
-				"SELECT * FROM Admin  " + 
+		String sql =
+				"SELECT id,name,surname,email,password,phoneNumber," +
+						"address,cardNumber,nativeLanguage FROM Admin"+
 				"WHERE id = ? " + 
 				"ORDER BY id";
 
@@ -87,8 +88,9 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Override
 	public List<Admin> findAll() {
-		String sql = 
-				"SELECT * FROM Admin " + 
+		String sql =
+				"SELECT id,name,surname,email,password,phoneNumber," +
+						"address,cardNumber,nativeLanguage FROM Admin" +
 						"ORDER BY id";
 
 		RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
@@ -136,8 +138,9 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public Admin getByEmail(String email) {
 		String sql = 
-				"SELECT * FROM Admin  " + 
-				"WHERE email = ? " + 
+				"SELECT id,name,surname,email,password,phoneNumber," +
+						"address,cardNumber,nativeLanguage FROM Admin  " +
+				"WHERE email = ? " +
 				"ORDER BY id";
 
 		RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
@@ -150,8 +153,8 @@ public class AdminDAOImpl implements AdminDAO {
 	
 	@Override
 	public Admin getByPhoneNumber(String phoneNumber) {
-		String sql = 
-				"SELECT * FROM Admin  " + 
+		String sql = "SELECT id,name,surname,email,password,phoneNumber," +
+						"address,cardNumber,nativeLanguage FROM Admin" +
 				"WHERE phoneNumber = ? " + 
 				"ORDER BY id";
 
@@ -165,8 +168,8 @@ public class AdminDAOImpl implements AdminDAO {
 	
 	@Override
 	public Admin getByCardNumber(String cardNumber) {
-		String sql = 
-				"SELECT * FROM Admin a " + 
+		String sql = "SELECT id,name,surname,email,password,phoneNumber," +
+						"address,cardNumber,nativeLanguage FROM Admin" +
 				"WHERE a.cardNumber = ?" + 
 				"ORDER BY a.id";
 
