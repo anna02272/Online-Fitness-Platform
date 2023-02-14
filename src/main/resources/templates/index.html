@@ -32,14 +32,27 @@
 		
 	<table th:unless="${session.user == null}"> 
 	 	  								
-		<tr><th>You're logged in as </th><td><a th:href="|users/details?id=${session.user.id}|" th:text="${session.user.email}"></a>.</td></tr>
-		<tr>
-			<td colspan="2">
-				<ul>
-					<li><a href="logout">Logout</a></li>
-				</ul>
-			</td>
-		</tr>
+		  <tr>
+        <th>You're logged in as </th>
+        <td>
+            <a th:if="${session.user.role.toString() == 'TRAINER'}" th:href="@{'/trainers/details?id=' + ${session.user.id}}">
+                View profile as trainer (<span th:text="${session.user.email}"></span>)
+            </a>
+            <a th:if="${session.user.role.toString() == 'CLIENT'}" th:href="@{'/clients/details?id=' + ${session.user.id}}">
+                View profile as client (<span th:text="${session.user.email}"></span>)
+            </a>
+            <a th:if="${session.user.role.toString() == 'ADMIN'}" th:href="@{'/admins/details?id=' + ${session.user.id}}">
+                View profile as admin (<span th:text="${session.user.email}"></span>)
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <ul>
+                <li><a href="logout">Logout</a></li>
+            </ul>
+        </td>
+    </tr>
 	</table>
 	<table th:if="${session.user == null}">
 		<tr><th>You're not logged in</th></tr>
