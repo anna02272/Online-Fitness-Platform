@@ -75,10 +75,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public Admin findOne(int id) {
 		String sql =
-				"SELECT id,name,surname,email,password,phoneNumber," +
-						"address,cardNumber,nativeLanguage FROM Admin"+
-				"WHERE id = ? " + 
-				"ORDER BY id";
+				"SELECT id,name,surname,email,password,phoneNumber,address,cardNumber,nativeLanguage,role FROM Admin WHERE id = ?";
 
 		RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
 		jdbcTemplate.query(sql, rowCallbackHandler, id);
@@ -88,7 +85,7 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Override
 	public List<Admin> findAll() {
-		String sql = "SELECT id, name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage, role FROM Admin ORDER BY id";
+		String sql = "SELECT id, name, surname, email, password, phoneNumber, address, cardNumber, nativeLanguage,role FROM Admin ORDER BY id";
 				
 
 		RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
