@@ -23,6 +23,27 @@
 	 <section class="registrationForm">
 	<div class = "registrationForm">
 	<table th:unless="${session.user == null}"> 
+<<<<<<< HEAD
+	<tr><th>You're logged in as:</th><td><a th:href="|users/details?id=${session.user.id}|" th:text="${session.user.email}"></a>.</td></tr>
+		<tr>
+			<td colspan="2">
+				<ul>
+					<li><a href="logout">Logout</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	<table th:if="${session.user == null}">
+		<tr><th>You're not logged in: </th></tr>
+		<tr>
+			<td>
+				<ul>
+					<li><a href="registration">Registration</a></li>
+					<li><a href="login">Login</a></li>
+				</ul>
+			</td>
+		</tr>
+=======
 	 	  								
 		  <tr>
         <th>You're logged in as </th>
@@ -45,6 +66,7 @@
             </ul>
         </td>
     </tr>
+>>>>>>> main
 	</table>
 	</div>
 	</section>

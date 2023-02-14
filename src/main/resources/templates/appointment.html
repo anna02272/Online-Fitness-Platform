@@ -15,7 +15,7 @@
 	 		<li ><a href="trainers" >Trainers</a></li>
 	 		<li ><a href="clients" >Clients</a></li>
 	 		<li ><a href="admins" >Admin</a></li>
-	 		<li ><a href="appointments">Appointments</a></li>   
+	 		<li ><a th:if="${session.user.role.toString() == 'ADMIN'}" href="appointments">Appointments</a></li>   
 	 		<li><a href="">Logout</a></li> 
 	 	</ul>     
 	 	</div>
@@ -32,6 +32,10 @@
 				<td>
 					<select name = "trainerId">
 						<option th:each="itTrainer: ${trainers}" 
+							th:if="${session.user != null && 
+            (session.user.role.toString() != 'TRAINER' || 
+              (session.user.role.toString() == 'TRAINER' && itTrainer.id == session.user.id))}"
+
 						th:value="${itTrainer.id}" 
 						th:text="|${itTrainer.name}  ${itTrainer.surname} |"
 						 th:selected="${itTrainer.id == appointment.trainer.id}">
@@ -54,7 +58,7 @@
 				</td>
 			</tr>      
 			<tr>
-			  <th>Is Free:</th>
+			  <th>Is reserved:</th>
 			  <td>
 			    <input type="checkbox" name="isFree" th:checked="${appointment.free}" />
 			  </td>
@@ -62,22 +66,7 @@
 			
 			<tr><th>Date and time:</th><td><input type="datetime" th:value="${appointment.dateAndTime}" name="dateAndTime"/></td></tr>
 		   <tr><th>Price:</th><td><input type="number"  th:value ="${appointment.price}" name="price" required/></td></tr>
-			 <tr>
- 				<th>Rating:</th>
-				<td>
-			    <select name="rating" >
-			      <option  
-			       th:each="erating: ${T(com.ftn.OnlineFitness.model.ERating).values()}" 
-			                th:value="${erating}" 
-			              th:text="${erating}"
-			               th:selected="${erating == appointment.rating}">
-			      </option>
-			    </select>
-			  </td>
-				
-			</tr>   
-			<tr><th>Comment:</th><td><input type="text" th:value="${appointment.comment}" name="comment" /></td></tr>
-		
+			
 			
  			
 			<tr><th></th><td><input type="submit" value="Update"/></td></tr>

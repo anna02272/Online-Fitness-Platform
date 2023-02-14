@@ -97,14 +97,12 @@ public class AppointmentController implements ServletContextAware {
 			@RequestParam(required = false, defaultValue="false") boolean isFree,
 			@RequestParam(required = true) @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAndTime,
 			@RequestParam(required = true) float price,
-			@RequestParam ERating rating,
-			@RequestParam(required = true) String comment,
 			HttpServletResponse response) throws IOException {	
 	  
 	     Trainer trainer = trainerService.findOne(trainerId);
 	     Client client = clientService.findOne(clientId);
 	    
-	     Appointment appointment = new Appointment(trainer, client, isFree, dateAndTime, price, rating, comment);
+	     Appointment appointment = new Appointment(trainer, client, isFree, dateAndTime, price);
 	    Appointment saved = appointmentService.save(appointment);
 	    response.sendRedirect(bURL+"appointments");
 	}
@@ -118,8 +116,6 @@ public class AppointmentController implements ServletContextAware {
 			@RequestParam(required = false, defaultValue="false") boolean isFree,
 			@RequestParam(required = true) @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAndTime,
 			@RequestParam(required = true) float price,
-			@RequestParam ERating rating,
-			@RequestParam(required = true) String comment,
 			 HttpServletResponse response) throws IOException {	
 		
 		  Trainer trainer = trainerService.findOne(trainerId);
@@ -140,11 +136,6 @@ public class AppointmentController implements ServletContextAware {
 			if(price > 0)
 				appointment.setPrice(price);
 			
-			if(rating != null )
-				appointment.setRating(rating);
-			
-			if(comment != null && !comment.trim().equals(""))
-				appointment.setComment(comment);
 		}
 		Appointment saved = appointmentService.update(appointment);
 		response.sendRedirect(bURL+"appointments");

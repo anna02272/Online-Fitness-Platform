@@ -16,7 +16,7 @@
 	 	     
 	 		<li ><a href="trainers" >Trainers</a></li>
 	 		<li ><a href="clients" >Clients</a></li>
-	 		<li ><a href="admins" >Admin</a></li>
+	 		<li ><a th:if="${session.user.role.toString() == 'ADMIN'}"  href="admins" >Admin</a></li>
 	 		<li ><a href="appointments">Appointments</a></li>
 	 		<li><a href="">Logout</a></li>  
 	 	   
@@ -35,6 +35,10 @@
 				<td>
 					<select name = "trainerId">
 						<option th:each="itTrainer: ${session.trainers}" 
+							th:if="${session.user != null && 
+            (session.user.role.toString() != 'TRAINER' || 
+              (session.user.role.toString() == 'TRAINER' && itTrainer.id == session.user.id))}"
+						
 						th:value="${itTrainer.id}" 
 						th:text="|${itTrainer.name}  ${itTrainer.surname} |">
 						</option>
@@ -57,7 +61,7 @@
 			
  			
  			<tr>
-			  <th>Is Free:</th>
+			  <th>Is reserved:</th>
 			  <td>
 			    <input type="checkbox" name="isFree" />
 			  </td>
@@ -66,20 +70,7 @@
  		
 			<tr><th>Price:</th><td><input type="number" value="" name="price" required/></td></tr>
 			
-				<tr>
- 				<th>Rating:</th>
-				<td>
-			    <select name="rating">
-			      <option th:each="erating: ${T(com.ftn.OnlineFitness.model.ERating).values()}" 
-			                th:value="${erating}" 
-			              th:text="${erating}">
-			      </option>
-			    </select>
-			  </td>
-			  <tr>
-			<tr><th>Comment:</th><td><input type="text" value="" name="comment" /></td></tr>
-		
- 		   
+			
  			<tr><th></th><td><input type="submit" value="Add"/></td>    
  		</table>    
  	</form>   

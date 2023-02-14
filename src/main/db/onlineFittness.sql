@@ -60,8 +60,6 @@ idClient BIGINT NOT NULL,
 isFree BOOLEAN DEFAULT TRUE NOT NULL,
 dateAndTime DATETIME NOT NULL,
 price DOUBLE NOT NULL,
-rating ENUM('1','2','3','4','5') NOT NULL,
-comment VARCHAR(35) NOT NULL,
 FOREIGN KEY (idTrainer) REFERENCES Trainer(id) ON DELETE CASCADE,
 FOREIGN KEY (idClient) REFERENCES ClientTable(id) ON DELETE CASCADE,
 primary key(id)
