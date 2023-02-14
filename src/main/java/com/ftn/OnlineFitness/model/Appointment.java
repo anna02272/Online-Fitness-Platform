@@ -11,10 +11,9 @@ public class Appointment {
 	private boolean isFree;
 	private LocalDateTime dateAndTime;
 	private float price;
-	private ERating rating;
-	private String comment;
+
 		
-	public Appointment(int id,Trainer trainer,Client client, boolean isFree, LocalDateTime dateAndTime, float price, ERating rating, String comment) {
+	public Appointment(int id,Trainer trainer,Client client, boolean isFree, LocalDateTime dateAndTime, float price) {
 		super();
 		this.id = id;
 		this.trainer = trainer;
@@ -22,20 +21,17 @@ public class Appointment {
 		this.isFree = isFree;
 		this.dateAndTime = dateAndTime;
 		this.price = price;
-		this.rating = rating;
-		this.comment = comment;
+		
 	}
 	
-	public Appointment(Trainer trainer, Client client, boolean isFree, LocalDateTime dateAndTime, float price,
-			ERating rating, String comment) {
+	public Appointment(Trainer trainer, Client client, boolean isFree, LocalDateTime dateAndTime, float price	) {
 		super();
 		this.trainer = trainer;
 		this.client = client;
 		this.isFree = isFree;
 		this.dateAndTime = dateAndTime;
 		this.price = price;
-		this.rating = rating;
-		this.comment = comment;
+
 	}
 
 	public int getId() {
@@ -62,18 +58,7 @@ public class Appointment {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	public ERating getRating() {
-		return rating;
-	}
-	public void setRating(ERating rating) {
-		this.rating = rating;
-	}
-	public String getComment() {
-		return comment;
-	}
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+
 	
 	public Trainer getTrainer() {
 		return trainer;
@@ -96,7 +81,7 @@ public class Appointment {
 		
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	    String dateTimeStr = dateAndTime.format(formatter);
-	    return id + ";" + Boolean.toString(isFree) + ";" + dateTimeStr + ";" + price + ";" + rating + ";" + comment;
+	    return id + ";" + Boolean.toString(isFree) + ";" + dateTimeStr + ";" + price + ";" ;
 	}
 
 }

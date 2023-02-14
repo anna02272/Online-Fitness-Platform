@@ -76,7 +76,7 @@ public class AdminDAOImpl implements AdminDAO {
 	public Admin findOne(int id) {
 		String sql =
 				"SELECT id,name,surname,email,password,phoneNumber," +
-						"address,cardNumber,nativeLanguage FROM Admin"+
+						"address,cardNumber,nativeLanguage, role FROM Admin "+
 				"WHERE id = ? " + 
 				"ORDER BY id";
 

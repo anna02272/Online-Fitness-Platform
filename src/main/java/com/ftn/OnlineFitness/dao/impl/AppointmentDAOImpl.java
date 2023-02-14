@@ -63,15 +63,11 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 			
 
 			float price = resultSet.getFloat(index++);
-			ERating rating = ERating.valueOf(resultSet.getString(index++));
-			String comment = resultSet.getString(index++);
-			
-
-
+		
 
 			Appointment appointment = appointments.get(id);
 			if (appointment == null) {
-				appointment = new Appointment(id,trainer, client, isFree, dateAndTime, price, rating, comment);
+				appointment = new Appointment(id,trainer, client, isFree, dateAndTime, price);
 				appointments.put( (long) appointment.getId(), appointment); 
 			}
 			
@@ -117,16 +113,15 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 			
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-				String sql = "INSERT INTO Appointment (idTrainer, idClient, isFree, dateAndTime, price, rating, comment) VALUES (?, ?, ?, ?, ?, ?, ?)";	 PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				String sql = "INSERT INTO Appointment (idTrainer, idClient, isFree, dateAndTime, price) VALUES (?, ?, ?, ?, ?)";	
+				PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int index = 1;
 				preparedStatement.setInt(index++, appointment.getTrainer().getId());
 				preparedStatement.setInt(index++, appointment.getClient().getId());
 				preparedStatement.setBoolean(index++, appointment.isFree());
 				preparedStatement.setTimestamp(index++, Timestamp.valueOf(appointment.getDateAndTime()));
 				preparedStatement.setFloat(index++, appointment.getPrice());
-				ERating rating = appointment.getRating();
-				preparedStatement.setString(index++, rating.name());
-				preparedStatement.setString(index++, appointment.getComment());
+				
 				return preparedStatement;
 			}
 
@@ -140,11 +135,11 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	@Override
 	public int update(Appointment appointment) {	
 		
-		String sql = "UPDATE Appointment SET idTrainer = ?, idClient = ?, isFree = ?, dateAndTime = ?, price = ?,"
-				+ " rating = ?, comment = ? WHERE id = ?";
+		String sql = "UPDATE Appointment SET idTrainer = ?, idClient = ?, isFree = ?, dateAndTime = ?, price = ?"
+				+ " WHERE id = ?";
 		boolean uspeh = jdbcTemplate.update(sql, appointment.getTrainer().getId(), appointment.getClient().getId(),  
-				appointment.isFree(), appointment.getDateAndTime(), appointment.getPrice(), appointment.getRating().name(), 
-				appointment.getComment(), appointment.getId()) == 1;
+				appointment.isFree(), appointment.getDateAndTime(), appointment.getPrice(), 
+			 appointment.getId()) == 1;
 		
 		return uspeh?1:0;
 	}
