@@ -84,4 +84,12 @@ public class Appointment {
 	    return id + ";" + Boolean.toString(isFree) + ";" + dateTimeStr + ";" + price + ";" ;
 	}
 
+	public Appointment(Trainer trainer, boolean isFree, LocalDateTime dateAndTime, float price) {
+		super();
+		this.trainer = trainer;
+		this.isFree = isFree;
+		this.dateAndTime = dateAndTime;
+		this.price = price;
+	}
+
 }

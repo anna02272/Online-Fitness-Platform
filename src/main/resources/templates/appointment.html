@@ -40,7 +40,8 @@
 
 						th:value="${itTrainer.id}" 
 						th:text="|${itTrainer.name}  ${itTrainer.surname} |"
-						 th:selected="${itTrainer.id == appointment.trainer.id}">
+						 th:selected="${itTrainer.id == appointment.trainer.id}"
+						 >
 						</option>
 					</select>
 					
@@ -51,9 +52,14 @@
 				<td>
 					<select name = "clientId">
 						<option th:each="itclient: ${clients}" 
+						th:if="${session.user != null && 
+            (session.user.role.toString() != 'CLIENT' || 
+              (session.user.role.toString() == 'CLIENT' && itclient.id == session.user.id))}"
+						
 						th:value="${itclient.id}" 
 						th:text="|${itclient.name}  ${itclient.surname} |"
-						 th:selected="${itclient.id == appointment.client.id}">
+						 th:selected="${appointment.client != null and itclient.id == appointment.client.id}"
+						 >
 						</option>
 					</select>
 					
@@ -66,8 +72,10 @@
 			  </td>
 			</tr>
 			
-			<tr><th>Date and time:</th><td><input type="datetime" th:value="${appointment.dateAndTime}" name="dateAndTime"/></td></tr>
-		   <tr><th>Price:</th><td><input type="number"  th:value ="${appointment.price}" name="price" required/></td></tr>
+			<tr><th>Date and time:</th><td><input type="datetime" th:value="${appointment.dateAndTime}" name="dateAndTime"
+			th:readonly="${session.user.role.toString() == 'CLIENT'}"/></td></tr>
+		   <tr><th>Price:</th><td><input type="number"  th:value ="${appointment.price}" name="price" required 
+		   th:readonly="${session.user.role.toString() == 'CLIENT'}"/></td></tr>
 			
 			
  			
