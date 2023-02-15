@@ -93,16 +93,16 @@ public class AppointmentController implements ServletContextAware {
 	@SuppressWarnings("unused")
 	@PostMapping(value="/add")
 	public void create(@RequestParam(value = "trainerId") @PathVariable("id") int trainerId,
-			@RequestParam(value = "clientId") @PathVariable("id") int clientId,
+//			@RequestParam(value = "clientId") @PathVariable("id") int clientId,
 			@RequestParam(required = false, defaultValue="false") boolean isFree,
 			@RequestParam(required = true) @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAndTime,
 			@RequestParam(required = true) float price,
 			HttpServletResponse response) throws IOException {	
 	  
 	     Trainer trainer = trainerService.findOne(trainerId);
-	     Client client = clientService.findOne(clientId);
+//	     Client client = clientService.findOne(clientId);
 	    
-	     Appointment appointment = new Appointment(trainer, client, isFree, dateAndTime, price);
+	     Appointment appointment = new Appointment(trainer, isFree, dateAndTime, price);
 	    Appointment saved = appointmentService.save(appointment);
 	    response.sendRedirect(bURL+"appointments");
 	}
@@ -165,6 +165,21 @@ public class AppointmentController implements ServletContextAware {
 
 		return rezultat; 
 	}
-	
+	@PostMapping(value="/cancel")
+	@ResponseBody
+	public ModelAndView cancel(@RequestParam int id) {
+		ModelAndView appointments = new ModelAndView("appointments");
+		Appointment appointment = appointmentService.findOne(id);
+		appointment.setFree(false);
+		appointment.setClient(null);
+		appointmentService.update(appointment);
+		
+		List<Appointment> allAppointments = appointmentService.findAll();
+		appointments.addObject("appointments", allAppointments);
+		return appointments;
+		
+		
+	}
+
 
 }
