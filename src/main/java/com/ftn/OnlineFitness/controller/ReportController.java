@@ -67,9 +67,20 @@ public class ReportController implements ServletContextAware {
 	
 	@GetMapping(value="/add")
 	public String create(HttpSession session, HttpServletResponse response){
+		List<Trainer> trainers = trainerService.findAll();
+        session.setAttribute("trainers", trainers);
+		
 		
 		return "addReport"; 
 	}
+	
+	
+//	@SuppressWarnings("unused")
+//	@PostMapping(value="/add")
+//	public void create() throws IOException {
+//		
+//		
+//	}
 
 	
 	@SuppressWarnings("unused")
