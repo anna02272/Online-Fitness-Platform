@@ -1,23 +1,22 @@
-<!DOCTYPE html> 
-	<html xmlns:th="http://www.thymeleaf.org">     
-	<head>     
-		<meta charset="UTF-8">     
-		<base th:href="@{/}">
-		<title>Admin</title>     
-		<link rel="stylesheet"  type="text/css"  href="css/StylesTable.css"/>     
-	 	<link rel="stylesheet"  type="text/css" href="css/StylesMenu.css"/>   
-	 </head>     
-	 <body> 
-	 <h2>OnlineFitness</h2>
-	  <nav>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">     
+<head>
+<meta charset="UTF-8">
+<title>Reports</title>
+<link rel="stylesheet"  type="text/css"  href="css/StylesTable.css"/>     
+<link rel="stylesheet"  type="text/css" href="css/StylesMenu.css"/>   
+</head>
+<body>
+ <h2>OnlineFitness</h2>
+ 
+  <nav>
 	  <div class="navigation">  
 	 	<ul>     
 	 			<li ><a href="trainers" >Trainers</a></li>
 	 		<li ><a href="clients" >Clients</a></li>
 	 		<li ><a href="admins" >Admin</a></li>
 	 		<li ><a href="appointments">Appointments</a></li>
-	 	 <li ><a th:if="${session.user.role.toString() == 'ADMIN'}" href="reports" >Reports</a></li>
-	 		
+	 		<li ><a href="reports">Reports</a> </li>
 	 	</ul>     
 	 	</div >
 	</nav>
@@ -65,44 +64,43 @@
 	  <section class="content">
 	<div class = "content" >
 	 		<table>     
-	 			<caption>Admin</caption>     
-	 			<tr>      
-	 			   <th></th>     
-	 				<th></th>  
-	 				<th>Name</th>          
-	 				<th>Surname</th>   
-	 				<th>Email</th>   
-	 				<th>Phone Number</th>   
-	 				<th>Address</th>   
-	 				<th>Card number</th>   
-	 				<th>Native language</th>  
-	 			  	<th>Additional languages</th> 
-	 				<th>Role</th> 
-	 				   
+	 			<caption>Reports</caption>     
+	 			<tr>  
+	 			    <th> </th>    
+	 				<th> Id </th>
+	 				<th>Period of time</th>          
+	 				<th>Income </th> 
+	 				<th>Highest rated trainers </th>
+	 			  	<th> Mostly paid traineres </th>
+	 			  	<th>Delete report</th>
+	 			  	
+	 			  	  
 	 			
 	 			</tr>
-	 			<tr th:each="itAdmin, status: ${admins}">
+	 			<tr th:each="itReport, status: ${reports}">
 	 			
 	 			<td class="broj" th:text="${(status.index + 1)+'.'}"></td>     
-	 				<td><a  
-	 				th:href="|admins/details?id=${itAdmin.id}|" th:text="${itAdmin.name}"></a></td>    
+	 				<td><a th:href="|reports/details?id=${itReport.id}|" th:text="${itReport.id}"></a></td>    
 	 	  
-	 				<td th:text="${itAdmin.name}"></td>    
-	 				<td th:text="${itAdmin.surname}"></td>    
-	 				<td th:text="${itAdmin.email}"></td>    
-	 				<td th:text="${itAdmin.phoneNumber}"></td>    
-	 				<td th:text="${itAdmin.address}"></td>    
-	 				<td th:text="${itAdmin.cardNumber}"></td>    
-	 				<td th:text="${itAdmin.nativeLanguage}"></td>    
-  <td>  <span th:each="language : ${itAdmin.additionalLanguages}" th:text="${language.name()} + ' '"></span> </td>
-	 				<td th:text="${itAdmin.role}"></td>    
-	 				
+	 				<td th:text="${itReport.periodOfTime}"></td>    
+	 				<td th:text="${itReport.income}"></td>    
+  <td>  <span th:each="trainerRanked : ${itReport.bestRankedTrainers}" th:text="${trainerRanked.email} + '   '"></span> </td>
+    <td>    <span th:each="trainerPaid : ${itReport.highestPaidTrainers}" th:text="${trainerPaid.email} + ' '"></span> </td>
+  
+<td>     		
+	 			       <form  method="post" action="reports/delete" >     
+	 						<input type="hidden"  name="id"  th:value="${itReport.id}">     
+	 						<input type="submit"  value="Delete">    
+	 					</form>    
+	 				</td>   	 				
 	 				
 	 			</tr>
 	 		</table>
 	 		</div>
 	 		</section>
-	 		
-	 	   
-	 </body>   
- </html>	
+	 <div class = 'btn'>  
+	 		<a href="reports/add" class = "btn">Add report</a>     
+	 	</div>
+
+</body>
+</html>

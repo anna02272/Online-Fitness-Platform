@@ -16,6 +16,8 @@
 	 		<li ><a href="clients" >Clients</a></li>
 	 		<li ><a th:if="${session.user.role.toString() == 'ADMIN'}" href="admins" >Admin</a></li>
 	 		<li ><a href="appointments">Appointments</a></li>
+	 	    <li ><a th:if="${session.user.role.toString() == 'ADMIN'}" href="reports" >Reports</a></li>
+	 		
 	 	</ul>     
 	 	</div >
 	</nav>
