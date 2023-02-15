@@ -55,8 +55,13 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 			int trainerId = resultSet.getInt(index++);
 			Trainer trainer = trainerDAO.findOne(trainerId);
 			
-			int clientId = resultSet.getInt(index++);
-			Client client = clientDAO.findOne(clientId);
+			Integer clientId = resultSet.getInt(index++);
+//			Client client = clientDAO.findOne(clientId);
+			 if (resultSet.wasNull()) {
+			        clientId = null;
+			    }
+			    Client client = clientId != null ? clientDAO.findOne(clientId) : null;
+
 			
 			boolean isFree = resultSet.getBoolean(index++);
 			LocalDateTime dateAndTime = resultSet.getObject(index++, LocalDateTime.class);
@@ -113,11 +118,11 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 			
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-				String sql = "INSERT INTO Appointment (idTrainer, idClient, isFree, dateAndTime, price) VALUES (?, ?, ?, ?, ?)";	
+				String sql = "INSERT INTO Appointment (idTrainer, isFree, dateAndTime, price) VALUES (?, ?, ?, ?)";	
 				PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int index = 1;
 				preparedStatement.setInt(index++, appointment.getTrainer().getId());
-				preparedStatement.setInt(index++, appointment.getClient().getId());
+//				preparedStatement.setInt(index++, appointment.getClient().getId());
 				preparedStatement.setBoolean(index++, appointment.isFree());
 				preparedStatement.setTimestamp(index++, Timestamp.valueOf(appointment.getDateAndTime()));
 				preparedStatement.setFloat(index++, appointment.getPrice());
@@ -134,15 +139,18 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 	@Transactional
 	@Override
 	public int update(Appointment appointment) {	
-		
-		String sql = "UPDATE Appointment SET idTrainer = ?, idClient = ?, isFree = ?, dateAndTime = ?, price = ?"
-				+ " WHERE id = ?";
-		boolean uspeh = jdbcTemplate.update(sql, appointment.getTrainer().getId(), appointment.getClient().getId(),  
-				appointment.isFree(), appointment.getDateAndTime(), appointment.getPrice(), 
-			 appointment.getId()) == 1;
-		
-		return uspeh?1:0;
+	    String sql = "UPDATE Appointment SET idTrainer = ?, idClient = ?, isFree = ?, dateAndTime = ?, price = ? WHERE id = ?";
+	    Object[] params = {appointment.getTrainer().getId(), null, appointment.isFree(), appointment.getDateAndTime(), appointment.getPrice(), appointment.getId()};
+	    
+	    Client client = appointment.getClient();
+	    if (client != null) {
+	        params[1] = client.getId();
+	    }
+	    
+	    boolean success = jdbcTemplate.update(sql, params) == 1;
+	    return success ? 1 : 0;
 	}
+
 	
 	@Transactional
 	@Override
