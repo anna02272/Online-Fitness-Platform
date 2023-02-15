@@ -16,6 +16,7 @@ public abstract class User {
 	private List<ELanguage> additionalLanguages;
 	private ERole role;
 	
+	public User() {}
 	
 	
 	public User(int id, String name, String surname, String email, String password, String phoneNumber, String address,

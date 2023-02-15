@@ -10,7 +10,9 @@ public class Trainer extends User {
     private String title;
     public boolean isActive;
     private double salary;
-
+    
+    
+    public Trainer() {}
 
     
 

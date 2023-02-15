@@ -3,7 +3,7 @@
  <head>    
  	<meta charset="UTF-8">    
  	<base th:href="@{/}">        
- 	<title>Add appointment</title>    
+ 	<title>Add trainer</title>    
  	<link rel="stylesheet" type="text/css" href="css/StylesForm.css"/>    
  	<link rel="stylesheet" type="text/css" href="css/StylesMenu.css"/>  
  	
@@ -29,55 +29,44 @@
 	
 	<section class="content">
 	<div class = "content"> 
- 	<form method="post" action="appointments/add">    
+ 	<form method="post" action="reports/add">    
  		<table>    
- 			<caption>Appointment</caption>    
- 			<tr>
- 				<th>Trainer:</th>
-				<td>
-					<select name = "trainerId">
+ 			<caption>Report</caption>    
+ 			<tr><th>Period of time (past 3 months,past week etc):</th><td><input type="text" value="" name="periodOfTime" /></td></tr>
+			<tr><th>Income:</th><td><input type="number" value="" name="income" required/></td></tr>
+		     <tr>
+     <th>Best rated trainers:</th>
+     <td>
+       <select name = "bestRatedTrainers" multiple>
 						<option th:each="itTrainer: ${session.trainers}" 
-							th:if="${session.user != null && 
-            (session.user.role.toString() != 'TRAINER' || 
-              (session.user.role.toString() == 'TRAINER' && itTrainer.id == session.user.id))}"
-						
 						th:value="${itTrainer.id}" 
 						th:text="|${itTrainer.name}  ${itTrainer.surname} |">
 						</option>
 					</select>
-					
-				</td>
-			</tr>        
-	<!--  		<tr>
- 				<th>Client:</th>
-				<td>
-					<select name = "clientId">
-						<option th:each="itClient: ${session.clients}" 
-						th:value="${itClient.id}" 
-						th:text="|${itClient.name}  ${itClient.surname} |">
+    </td>
+  </tr>
+    <tr>
+     <th>Most paid trainers:</th>
+     <td>
+       <select name = "mostPaidTrainers" multiple>
+						<option th:each="itTrainer: ${session.trainers}" 
+						th:value="${itTrainer.id}" 
+						th:text="|${itTrainer.name}  ${itTrainer.surname} |">
 						</option>
 					</select>
-					
-				</td>
-			</tr>        
-			-->
- 			
- 			<tr>
-			  <th>Is reserved:</th>
-			  <td>
-			    <input type="checkbox" name="isFree" />
-			  </td>
-			</tr>
-			 <tr><th>Date and time:</th><td><input type="datetime-local" name="dateAndTime" required/></td></tr>
- 		
-			<tr><th>Price:</th><td><input type="number" value="" name="price" required/></td></tr>
-			
-			
+    </td>
+  </tr>
+  
+  
+				<tr>
+			  <tr>		
  			<tr><th></th><td><input type="submit" value="Add"/></td>    
  		</table>    
  	</form>   
  	</div>
  		</section>
+ 		
+ 		
  	<br/>  
  </body>  
  </html>  		
