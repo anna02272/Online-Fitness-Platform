@@ -107,13 +107,22 @@
 	 						<input type="hidden"  name="id"  th:value="${itappointment.id}">     
 	 						<input type="submit"  value="Delete" >    
 	 					</form>    
-	 				</td>   
+	 				</td>
+	 				 
 	 			</tr>
 	 		</table>
 	 		</div>
 	 		</section>
 	 		 <div  class = 'btn'>  
-	 		<a  th:if="${session.user.role.toString() != 'CLIENT'}" href="appointments/add" class = "btn">Add appointment</a>     
+	 		<a  th:if="${session.user.role.toString() != 'CLIENT'}" href="appointments/add" class = "btn">Add appointment</a> 
+	 		    
+	 	</div>
+	 	<div  class = 'btn'>  
+	 		<a  th:if="${session.user.role.toString() == 'CLIENT'}" href="trainerAssessment/add" class = "btn">Add TrainerAssessment</a> 
+	 		    
+	 	</div>
+	 	<div  class = 'btn'>  
+	 		<a  th:if="${session.user.role.toString() == 'TRAINER'}" href="clientAssessment/add" class = "btn">Add ClientAssessment</a>     
 	 	</div>
 	 	   
 	 	     <section class="content" th:if="${session.user.role.toString() != 'ADMIN'}">

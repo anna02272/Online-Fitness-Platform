@@ -1,4 +1,4 @@
-package com.ftn.OnlineFitness.dao.impl;
+ package com.ftn.OnlineFitness.dao.impl;
 
 
 import java.sql.Connection;

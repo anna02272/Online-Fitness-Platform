@@ -1,0 +1,88 @@
+<!DOCTYPE html>    
+ <html xmlns:th="http://www.thymeleaf.org">    
+ <head>    
+ 	<meta charset="UTF-8">    
+ 	<base th:href="@{/}">        
+ 	<title>Add appointment</title>    
+ 	<link rel="stylesheet" type="text/css" href="css/StylesForm.css"/>    
+ 	<link rel="stylesheet" type="text/css" href="css/StylesMenu.css"/>  
+ 	
+ </head>    
+ <body> 
+ <h2>OnlineFitness</h2>   
+ 	 <nav>
+	  <div class="navigation">  
+	 	<ul>     
+	 	     
+	 		<li ><a href="trainers" >Trainers</a></li>
+	 		<li ><a href="clients" >Clients</a></li>
+	 		<li ><a th:if="${session.user.role.toString() == 'ADMIN'}"  href="admins" >Admin</a></li>
+	 		<li ><a href="appointments">Appointments</a></li>
+	 	 <li ><a th:if="${session.user.role.toString() == 'ADMIN'}" href="reports" >Reports</a></li>
+	 		
+	 		<li><a href="">Logout</a></li>  
+	 	   
+	 	</ul>     
+	 	</div>
+	</nav>
+	
+	
+	<section class="content">
+	<div class = "content"> 
+ 	<form method="post" action="trainerAssessment/add">    
+ 		<table>    
+ 			<caption>Trainer Assessment</caption>    
+ 			<tr>
+ 				<th>Trainer:</th>
+				<td>
+					<select name = "trainerId">
+						<option th:each="itTrainer: ${session.trainers}" 
+							th:if="${session.user != null && 
+            (session.user.role.toString() != 'TRAINER' || 
+              (session.user.role.toString() == 'TRAINER' && itTrainer.id == session.user.id))}"
+						
+						th:value="${itTrainer.id}" 
+						th:text="|${itTrainer.name}  ${itTrainer.surname} |">
+						</option>
+					</select>
+					
+				</td>
+			</tr>        
+	  		<tr>
+ 				<th>Client:</th>
+				<td>
+					<select name = "clientId">
+						<option th:each="itClient: ${session.clients}" 
+						th:value="${itClient.id}" 
+						th:text="|${itClient.name}  ${itClient.surname} |">
+						</option>
+					</select>
+					
+				</td>
+			</tr>        
+		
+ 			
+ 			<tr>
+ 				<th>Rating:</th>
+				<td>
+			    <select name="rating">
+			      <option th:each="eRating: ${T(com.ftn.OnlineFitness.model.ERating).values()}" 
+			                th:value="${eRating}" 
+			              th:text="${eRating}">
+			      </option>
+			    </select>
+			  </td>
+			  <tr>
+			 <tr><th>Comment:</th><td><input type="text" value="" name="comment" /></td></tr>
+ 		
+			
+			
+			
+ 			<tr><th></th><td><input type="submit" value="Add"/></td>    
+ 		</table>    
+ 	</form>   
+ 	</div>
+ 		</section>
+ 	<br/>  
+ </body>  
+ </html>  		

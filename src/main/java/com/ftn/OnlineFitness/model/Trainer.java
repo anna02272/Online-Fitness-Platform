@@ -11,10 +11,8 @@ public class Trainer extends User {
     public boolean isActive;
     private double salary;
     
-    
-    public Trainer() {}
-
-    
+	public Trainer() {}
+ 
 
 	public Trainer(String name, String surname, String email, String password, String phoneNumber, String address,
 			String cardNumber, ELanguage nativeLanguage, List<ELanguage> additionalLanguages, ERole role,

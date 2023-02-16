@@ -177,9 +177,7 @@ public class TrainerController implements ServletContextAware {
 			rezultat.addObject("trainerLanguages", trainerLanguages);
 
 			return rezultat; 
-		}
-		
-		
+		} 
 		@PostMapping(value="/activate")
 		@ResponseBody
 		public ModelAndView activate(@RequestParam int id) {
