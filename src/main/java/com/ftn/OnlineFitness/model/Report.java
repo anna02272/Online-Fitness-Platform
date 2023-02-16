@@ -22,6 +22,15 @@ public class Report {
 		this.highestPaidTrainers = highestPaidTrainers;
 	}
 	
+	public Report(String periodOfTime, double income, List<Trainer> bestRankedTrainers,
+			List<Trainer> highestPaidTrainers) {
+		super();
+		this.periodOfTime = periodOfTime;
+		this.income = income;
+		this.bestRankedTrainers = bestRankedTrainers;
+		this.highestPaidTrainers = highestPaidTrainers;
+	}
+	
 	
 	
 	

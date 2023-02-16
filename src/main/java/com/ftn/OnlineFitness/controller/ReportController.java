@@ -1,6 +1,7 @@
 package com.ftn.OnlineFitness.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -74,13 +75,35 @@ public class ReportController implements ServletContextAware {
 		return "addReport"; 
 	}
 	
-	
-//	@SuppressWarnings("unused")
-//	@PostMapping(value="/add")
-//	public void create() throws IOException {
-//		
-//		
-//	}
+	@PostMapping(value="/add")
+	public void create(@RequestParam String periodOfTime,
+	                    @RequestParam List<Integer> bestRatedTrainers,
+	                    @RequestParam double income,
+	                    @RequestParam List<Integer> mostPaidTrainers,
+	                    HttpServletResponse response) throws IOException {
+	    
+	    List<Trainer> bestRankedTrainers = new ArrayList<>();
+	    for (int trainerId : bestRatedTrainers) {
+	        Trainer trainer = trainerService.findOne(trainerId);
+	        if (trainer != null) {
+	            bestRankedTrainers.add(trainer);
+	        }
+	    }
+	    
+	    List<Trainer> mostPaidTrainersList = new ArrayList<>();
+	    for (int trainerId : mostPaidTrainers) {
+	        Trainer trainer = trainerService.findOne(trainerId);
+	        if (trainer != null) {
+	            mostPaidTrainersList.add(trainer);
+	        }
+	    }
+	    
+	    Report newReport = new Report(periodOfTime,income,bestRankedTrainers,mostPaidTrainersList);
+	    
+	    Report saved = reportService.save(newReport);
+	    
+	    response.sendRedirect(bURL+"reports");
+	}
 
 	
 	@SuppressWarnings("unused")
