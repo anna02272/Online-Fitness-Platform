@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -114,6 +115,56 @@ public class ReportController implements ServletContextAware {
 	}
 	
 	
+	@GetMapping(value="/details")
+	@ResponseBody
+	public ModelAndView details(@RequestParam int id) {	
+		
+		Report report  = reportService.findOne(id);
+		List<Trainer> trainers = trainerService.findAll();
+		List<Trainer> bestRatedTrainers = reportService.getBestRankedTrainers(id);
+		List<Trainer> mostPaidTrainers = reportService.getMostPaidTrainers(id);
+		
+		ModelAndView rezultat = new ModelAndView("report"); 
+		rezultat.addObject("report",report);
+		rezultat.addObject("trainers",trainers);
+		rezultat.addObject("bestRatedTrainers", bestRatedTrainers); 
+		rezultat.addObject("mostPaidTrainers", mostPaidTrainers); 
+
+		return rezultat; 
+	}
+	
+	
+	@PostMapping(value="/edit")
+	public void Edit(@RequestParam int id, @RequestParam String periodOfTime,
+	    @RequestParam float income, @RequestParam(name = "bestRatedTrainers" ,required = false) List<Integer> bestRatedTrainerIds,
+	    @RequestParam( name = "mostPaidTrainers", required = false) List<Integer> mostPaidTrainerIds,HttpServletResponse response)
+	    		throws IOException {
+	    
+	    Report report = reportService.findOne(id);
+	    report.setPeriodOfTime(periodOfTime);
+	    report.setIncome(income);
+	    
+	    List<Trainer> bestRatedTrainers = new ArrayList<>();
+	    for (Integer trainerId : bestRatedTrainerIds) {
+	        Trainer trainer = trainerService.findOne(trainerId);
+	        bestRatedTrainers.add(trainer);
+	    }
+	    report.setBestRankedTrainers(bestRatedTrainers);
+	    
+	    List<Trainer> mostPaidTrainers = new ArrayList<>();
+	    for (Integer trainerId : mostPaidTrainerIds) {
+	        Trainer trainer = trainerService.findOne(trainerId);
+	        mostPaidTrainers.add(trainer);
+	    }
+	    report.setHighestPaidTrainers(mostPaidTrainers);
+	    
+	    Report saved = reportService.update(report);
+	    response.sendRedirect(bURL + "reports");
+	    
+	}
+
 	
 
+	
 }
+

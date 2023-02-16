@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<base th:href="@{/}">
+	<link rel="stylesheet" type="text/css" href="css/StylesForm.css"/>
+	<link rel="stylesheet" type="text/css" href="css/StylesMenu.css"/>
+	<title>Appointment</title>
+</head>
+<body>
+<h2>OnlineFittness</h2>
+	 <nav>
+	  <div class="navigation">  
+	 	<ul>     
+	 		<li ><a href="trainers" >Trainers</a></li>
+	 		<li ><a href="clients" >Clients</a></li>
+	 		<li ><a href="admins" >Admin</a></li>
+	 		<li ><a th:if="${session.user.role.toString() == 'ADMIN'}" href="appointments">Appointments</a></li> 
+	 	 <li ><a th:if="${session.user.role.toString() == 'ADMIN'}" href="reports" >Reports</a></li>
+	 		  
+	 		<li><a href="">Logout</a></li> 
+	 	</ul>     
+	 	</div>
+	</nav>
+	
+	<section class="content">
+	<div class = "content"> 
+	<form method="post" action="reports/edit">
+		<input type="hidden" name="id" th:value="${report.id}"/>
+		<table class="forma">
+				<caption>Report</caption>
+			<tr><th>Period of time:</th><td><input type="text" th:value="${report.periodOfTime}" name="periodOfTime"/></td></tr>
+		   <tr><th>Income:</th><td><input type="number"  th:value ="${report.income}" name="income"/></td></tr>
+		 	<tr>
+	<th>Best rated trainers</th>
+	<td>
+		<select name="bestRatedTrainers" multiple>
+			<option th:each="itTrainer: ${trainers}" 
+    th:value="${itTrainer.id}" 
+    th:text="|${itTrainer.name} ${itTrainer.surname}|" 
+    th:selected="${bestRatedTrainers.![id].contains(itTrainer.id)}"
+></option>
+
+		</select>
+	</td>
+</tr>
+
+		 	<tr>
+	<th>Most paid trainers</th>
+	<td>
+		<select name="mostPaidTrainers" multiple>
+			<option th:each="itTrainer: ${trainers}" 
+    th:value="${itTrainer.id}" 
+    th:text="|${itTrainer.name} ${itTrainer.surname}|" 
+    th:selected="${mostPaidTrainers.![id].contains(itTrainer.id)}"
+></option>
+
+		</select>
+	</td>
+</tr>
+
+
+<tr><th>Income:</th><td><input type="number"  th:value ="${report.income}" name="income"/></td></tr>
+		 		   
+			<tr><th></th><td><input type="submit" value="Update"/></td></tr>
+		</table>
+	</form>
+	<form method="post" action="reports/delete">
+		<input type="hidden" name="id" th:value="${report.id}"/>
+		<table class="forma">
+			<tr><th></th><td><input type="submit" value="Delete"/></td></tr>
+		</table>
+	</form>
+	
+	</div>
+	</section>
+</body>
+</html>
