@@ -128,8 +128,10 @@ public class ReportDAOImpl implements ReportDAO {
 public int update(Report report) {
 	
 	String sql = "UPDATE Report SET periodOfTime = ?, income = ? WHERE reportId = ?";
-	boolean uspeh = jdbcTemplate.update(sql,report.getPeriodOfTime(),report.getIncome()) == 1;
+	boolean uspeh = jdbcTemplate.update(sql,report.getPeriodOfTime(),report.getIncome(),report.getId()) == 1;
 	
+	
+    if (!report.getBestRankedTrainers().isEmpty()) {
 	String deleteSql = "DELETE FROM reportbestRatedTrainer WHERE reportId = ?";
 	jdbcTemplate.update(deleteSql, report.getId());
 	
@@ -141,11 +143,12 @@ public int update(Report report) {
                break;
            }
        }
+    }
 	   
 	 String deleteSql1 = "DELETE FROM reportMostPaidTrainer WHERE reportId = ?";  
      jdbcTemplate.update(deleteSql1, report.getId());
 
-	   
+     if (!report.getHighestPaidTrainers().isEmpty()) {	   
    String insertSql1 = "INSERT INTO reportMostPaidTrainer (trainerId,reportId) values (?,?)";
    
    for (Trainer trainer : report.getHighestPaidTrainers()) {
@@ -154,6 +157,8 @@ public int update(Report report) {
            break;
        }
    }
+   
+     }
    return uspeh?1:0;
 	
 }
