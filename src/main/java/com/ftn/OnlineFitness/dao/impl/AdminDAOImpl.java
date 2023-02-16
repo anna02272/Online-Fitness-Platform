@@ -147,7 +147,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public Admin getByPhoneNumber(String phoneNumber) {
 		String sql = "SELECT id,name,surname,email,password,phoneNumber," +
-						"address,cardNumber,nativeLanguage FROM Admin" +
+						"address,cardNumber,nativeLanguage FROM Admin " +
 				"WHERE phoneNumber = ? " + 
 				"ORDER BY id";
 
@@ -162,9 +162,9 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public Admin getByCardNumber(String cardNumber) {
 		String sql = "SELECT id,name,surname,email,password,phoneNumber," +
-						"address,cardNumber,nativeLanguage FROM Admin" +
-				"WHERE a.cardNumber = ?" + 
-				"ORDER BY a.id";
+						"address,cardNumber,nativeLanguage FROM Admin " +
+				"WHERE  cardNumber = ?" + 
+				"ORDER BY  id";
 
 		RowCallBackHandler rowCallbackHandler = new RowCallBackHandler();
 		jdbcTemplate.query(sql, rowCallbackHandler, cardNumber);
