@@ -37,10 +37,7 @@
 				<td>
 					<select name = "trainerId">
 						<option th:each="itTrainer: ${session.trainers}" 
-							th:if="${session.user != null && 
-            (session.user.role.toString() != 'TRAINER' || 
-              (session.user.role.toString() == 'TRAINER' && itTrainer.id == session.user.id))}"
-						
+							
 						th:value="${itTrainer.id}" 
 						th:text="|${itTrainer.name}  ${itTrainer.surname} |">
 						</option>
@@ -53,6 +50,10 @@
 				<td>
 					<select name = "clientId">
 						<option th:each="itClient: ${session.clients}" 
+						th:if="${session.user != null && 
+            (session.user.role.toString() != 'CLIENT' || 
+              (session.user.role.toString() == 'CLIENT' && itClient.id == session.user.id))}"
+						
 						th:value="${itClient.id}" 
 						th:text="|${itClient.name}  ${itClient.surname} |">
 						</option>
