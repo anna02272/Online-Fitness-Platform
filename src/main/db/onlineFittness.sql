@@ -115,6 +115,34 @@ FOREIGN KEY (idClient) REFERENCES ClientTable(id) ON DELETE CASCADE
 FOREIGN KEY (idTrainer) REFERENCES Trainer(id) ON DELETE CASCADE,
 );
 
+CREATE TABLE Report (
+reportId BIGINT AUTO_INCREMENT,
+periodOfTime VARCHAR(50) NOT NULL,
+income DOUBLE NOT NULL,
+primary key(reportId)
+)
+
+INSERT INTO Report (reportId, periodOfTime, income) VALUES (1, 'Past 3 months', 12000);
+
+CREATE TABLE reportbestRatedTrainer(
+trainerId BIGINT NOT NULL,
+reportId BIGINT NOT NULL,
+FOREIGN KEY (trainerId) REFERENCES Trainer(id) ON DELETE CASCADE,
+FOREIGN KEY (reportId) REFERENCES Report(reportId) ON DELETE CASCADE
+)
+INSERT INTO reportbestRatedTrainer(trainerId,reportId) VALUES (1,1)
+INSERT INTO reportbestRatedTrainer(trainerId,reportId) VALUES (12,1)
+
+INSERT INTO reportMostPaidTrainer (trainerId,reportId) VALUES (13,1)
+
+
+CREATE TABLE reportMostPaidTrainer(
+trainerId BIGINT NOT NULL,
+reportId BIGINT NOT NULL,
+FOREIGN KEY (trainerId) REFERENCES Trainer(id) ON DELETE CASCADE,
+FOREIGN KEY (reportId) REFERENCES Report(reportId) ON DELETE CASCADE
+)
+
 
 INSERT INTO Trainer VALUES(1, 'Milan','Milanic','milanmilanic@gmail.com', 'password', '060 3311 964','address','160-216125-49','SERBIAN','TRAINER','DIPLOMIRANI PROFESOR FIZICKOG VASPITANJA','PROFESOR SPORTA I FIZICKOG VASPITANJA', 'Title',FALSE,40000);
 
