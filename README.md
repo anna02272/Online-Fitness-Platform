@@ -1,13 +1,13 @@
-#Online Fitness Platform
+# Online Fitness Platform
 
-##Roles
+## Roles
 1. Client
 2. Trainer
 3. Admin
 4. Platform Owner
 5. Sports Hour (Nutritionist)
 
-##Functionality
+## Functionality
 **Registration and Profiles:**
 - Clients and trainers register independently.
 - Registration data includes: name, surname, email, contact phone, address, credit card number, primary language, additional languages.
