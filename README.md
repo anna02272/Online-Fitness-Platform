@@ -1,5 +1,14 @@
 # Online Fitness Platform
 
+This project focuses on developing a web-based MVC (Model-View-Controller) application for scheduling online fitness training sessions. 
+The primary emphasis during the implementation was on creating essential UML (Unified Modeling Language) diagrams, including Class Diagrams, Activity Diagrams, Sequence Diagrams, and Use Case Diagrams.
+
+## Technologies
+- Java
+- MVC
+- MySQL
+- Thymeleaf
+
 ## Roles
 1. Client
 2. Trainer
